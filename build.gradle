@@ -17,15 +17,10 @@ apply from: file('gradle/check.gradle')
 apply from: file('gradle/license.gradle')
 apply from: file('gradle/release.gradle')
 
-apply plugin: 'war'
-apply plugin: 'jetty'
+apply plugin: 'groovy'
 
 dependencies {
-    compile 'javax.ws.rs:jsr311-api:1.1.1'
-    compile 'com.sun.jersey:jersey-core:1.11'
-    compile 'com.sun.jersey:jersey-server:1.11'
-    compile 'com.sun.jersey:jersey-servlet:1.11'
-    testCompile 'org.testng:testng:6.1.1'
-    testCompile 'org.mockito:mockito-core:1.8.5'
+    testCompile "org.codehaus.groovy:groovy-all:1.8.6"
+    testCompile "org.spockframework:spock-core:0.6-groovy-1.8"
 }
 
