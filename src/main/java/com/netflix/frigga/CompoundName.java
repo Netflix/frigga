@@ -42,61 +42,56 @@ public class CompoundName {
     private String redBlackSwap;
     private String zone;
 
-    public static String stackNameFromGroupName(String autoScalingGroupName) {
-        CompoundName names = dissectCompoundName(autoScalingGroupName);
-        return names.stack != null ? names.stack : "";
-    }
-
-    public static String clusterFromGroupName(String autoScalingGroupName) {
-        CompoundName names = dissectCompoundName(autoScalingGroupName);
-        return names.cluster != null ? names.cluster : "";
-    }
-
-    /**
-     * Breaks down the name of an auto scaling group or load balancer into its component parts.
-     *
-     * @param asgName the name of an auto scaling group or load balancer
-     * @return ClusterNames a data object containing the component parts of the compound name
-     */
-    public static CompoundName dissectCompoundName(String asgName) {
-        CompoundName clusterNames = new CompoundName();
-        if (asgName == null || asgName.trim().isEmpty()) {
-            return clusterNames;
+    protected CompoundName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return;
         }
 
-        clusterNames.group = asgName;
-        Matcher pushMatcher = PUSH_PATTERN.matcher(asgName);
+        Matcher pushMatcher = PUSH_PATTERN.matcher(name);
         boolean hasPush = pushMatcher.matches();
-        clusterNames.cluster = hasPush ? pushMatcher.group(1) : asgName;
-        clusterNames.push = hasPush ? pushMatcher.group(2) : null;
-        String sequenceString = hasPush ? pushMatcher.group(3) : null;
-        if (sequenceString != null) {
-            clusterNames.sequence = Integer.parseInt(sequenceString);
-        }
+        String theCluster = hasPush ? pushMatcher.group(1) : name;
 
-        Matcher labeledVarsMatcher = LABELED_VARS_PATTERN.matcher(clusterNames.cluster);
+        Matcher labeledVarsMatcher = LABELED_VARS_PATTERN.matcher(theCluster);
         boolean labeledAndUnlabeledMatches = labeledVarsMatcher.matches();
         if (!labeledAndUnlabeledMatches) {
-            return new CompoundName();
+            return;
         }
+
+        group = name;
+        cluster = theCluster;
+        push = hasPush ? pushMatcher.group(2) : null;
+        String sequenceString = hasPush ? pushMatcher.group(3) : null;
+        if (sequenceString != null) {
+            sequence = Integer.parseInt(sequenceString);
+        }
+
         String unlabeledVars = labeledVarsMatcher.group(1);
         String labeledVariables = labeledVarsMatcher.group(2);
 
         Matcher nameMatcher = NAME_PATTERN.matcher(unlabeledVars);
         nameMatcher.matches();
-        clusterNames.app = nameMatcher.group(1);
-        clusterNames.stack = checkEmpty(nameMatcher.group(2));
-        clusterNames.detail = checkEmpty(nameMatcher.group(3));
+        app = nameMatcher.group(1);
+        stack = checkEmpty(nameMatcher.group(2));
+        detail = checkEmpty(nameMatcher.group(3));
 
-        clusterNames.countries    = extractLabeledVariable(labeledVariables, COUNTRIES_KEY);
-        clusterNames.devPhase     = extractLabeledVariable(labeledVariables, DEV_PHASE_KEY);
-        clusterNames.hardware     = extractLabeledVariable(labeledVariables, HARDWARE_KEY);
-        clusterNames.partners     = extractLabeledVariable(labeledVariables, PARTNERS_KEY);
-        clusterNames.revision     = extractLabeledVariable(labeledVariables, REVISION_KEY);
-        clusterNames.usedBy       = extractLabeledVariable(labeledVariables, USED_BY_KEY);
-        clusterNames.redBlackSwap = extractLabeledVariable(labeledVariables, RED_BLACK_SWAP_KEY);
-        clusterNames.zone         = extractLabeledVariable(labeledVariables, ZONE_KEY);
-        return clusterNames;
+        countries    = extractLabeledVariable(labeledVariables, COUNTRIES_KEY);
+        devPhase     = extractLabeledVariable(labeledVariables, DEV_PHASE_KEY);
+        hardware     = extractLabeledVariable(labeledVariables, HARDWARE_KEY);
+        partners     = extractLabeledVariable(labeledVariables, PARTNERS_KEY);
+        revision     = extractLabeledVariable(labeledVariables, REVISION_KEY);
+        usedBy       = extractLabeledVariable(labeledVariables, USED_BY_KEY);
+        redBlackSwap = extractLabeledVariable(labeledVariables, RED_BLACK_SWAP_KEY);
+        zone         = extractLabeledVariable(labeledVariables, ZONE_KEY);
+    }
+
+    /**
+     * Breaks down the name of an auto scaling group or load balancer into its component parts.
+     *
+     * @param name the name of an auto scaling group or load balancer
+     * @return ClusterNames a data object containing the component parts of the compound name
+     */
+    public static CompoundName parseName(String name) {
+        return new CompoundName(name);
     }
 
     private static String extractLabeledVariable(String labeledVariablesString, String labelKey) {

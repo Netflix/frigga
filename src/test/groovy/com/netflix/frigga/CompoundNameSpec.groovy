@@ -1,14 +1,12 @@
 package com.netflix.frigga
 
-import com.netflix.frigga.CompoundName;
-
 import spock.lang.Specification
 
 class CompoundNameSpec extends Specification {
 
     def 'should dissect name with dot'() {
         when:
-        CompoundName names = CompoundName.dissectCompoundName("chukwa.collector_1-v889")
+        CompoundName names = CompoundName.parseName("chukwa.collector_1-v889")
 
         then:
         "chukwa.collector_1-v889" == names.group
@@ -22,7 +20,7 @@ class CompoundNameSpec extends Specification {
 
     def 'should return empty obejct for invalid'() {
         when:
-        CompoundName names = CompoundName.dissectCompoundName('nccp-moviecontrol%27')
+        CompoundName names = CompoundName.parseName('nccp-moviecontrol%27')
 
         then:
         null == names.group
@@ -36,7 +34,7 @@ class CompoundNameSpec extends Specification {
 
     def 'should dissect group names'() {
         when:
-        CompoundName names = CompoundName.dissectCompoundName(null)
+        CompoundName names = CompoundName.parseName(null)
         then:
         null == names.group
         null == names.cluster
@@ -47,7 +45,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("actiondrainer")
+        names = CompoundName.parseName("actiondrainer")
         then:
         "actiondrainer" == names.group
         "actiondrainer" == names.cluster
@@ -58,7 +56,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("actiondrainer-v003")
+        names = CompoundName.parseName("actiondrainer-v003")
         then:
         "actiondrainer-v003" == names.group
         "actiondrainer" == names.cluster
@@ -69,7 +67,7 @@ class CompoundNameSpec extends Specification {
         3 == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("actiondrainer--v003")
+        names = CompoundName.parseName("actiondrainer--v003")
         then:
         "actiondrainer--v003" == names.group
         "actiondrainer-" == names.cluster
@@ -80,7 +78,7 @@ class CompoundNameSpec extends Specification {
         3 == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("actiondrainer---v003")
+        names = CompoundName.parseName("actiondrainer---v003")
         then:
         "actiondrainer---v003" == names.group
         "actiondrainer--" == names.cluster
@@ -91,7 +89,7 @@ class CompoundNameSpec extends Specification {
         3 == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("api-test-A")
+        names = CompoundName.parseName("api-test-A")
         then:
         "api-test-A" == names.group
         "api-test-A" == names.cluster
@@ -101,7 +99,7 @@ class CompoundNameSpec extends Specification {
         null == names.push
 
         when:
-        names = CompoundName.dissectCompoundName("api-test-A-v406")
+        names = CompoundName.parseName("api-test-A-v406")
         then:
         "api-test-A-v406" == names.group
         "api-test-A" == names.cluster
@@ -112,7 +110,7 @@ class CompoundNameSpec extends Specification {
         406 == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("api-test101")
+        names = CompoundName.parseName("api-test101")
         then:
         "api-test101" == names.group
         "api-test101" == names.cluster
@@ -123,7 +121,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("chukwacollector_1")
+        names = CompoundName.parseName("chukwacollector_1")
         then:
         "chukwacollector_1" == names.group
         "chukwacollector_1" == names.cluster
@@ -134,7 +132,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("chukwacollector_1-v889")
+        names = CompoundName.parseName("chukwacollector_1-v889")
         then:
         "chukwacollector_1-v889" == names.group
         "chukwacollector_1" == names.cluster
@@ -145,7 +143,7 @@ class CompoundNameSpec extends Specification {
         889 == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("api-test-A")
+        names = CompoundName.parseName("api-test-A")
         then:
         "api-test-A" == names.group
         "api-test-A" == names.cluster
@@ -156,7 +154,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("discovery-dev")
+        names = CompoundName.parseName("discovery-dev")
         then:
         "discovery-dev" == names.group
         "discovery-dev" == names.cluster
@@ -167,7 +165,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("discovery-us-east-1d")
+        names = CompoundName.parseName("discovery-us-east-1d")
         then:
         "discovery-us-east-1d" == names.group
         "discovery-us-east-1d" == names.cluster
@@ -178,7 +176,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("evcache-us-east-1d-0")
+        names = CompoundName.parseName("evcache-us-east-1d-0")
         then:
         "evcache-us-east-1d-0" == names.group
         "evcache-us-east-1d-0" == names.cluster
@@ -189,7 +187,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("evcache-us-east-1d-0-v223")
+        names = CompoundName.parseName("evcache-us-east-1d-0-v223")
         then:
         "evcache-us-east-1d-0-v223" == names.group
         "evcache-us-east-1d-0" == names.cluster
@@ -200,7 +198,7 @@ class CompoundNameSpec extends Specification {
         223 == names.sequence
 
         when:
-        names = CompoundName.dissectCompoundName("videometadata-navigator-integration-240-CAN")
+        names = CompoundName.parseName("videometadata-navigator-integration-240-CAN")
         then:
         "videometadata-navigator-integration-240-CAN" == names.group
         "videometadata-navigator-integration-240-CAN" == names.cluster
@@ -214,7 +212,7 @@ class CompoundNameSpec extends Specification {
 
     void testDissectGroupNameWithLabeledVariables() {
         when:
-        CompoundName names = CompoundName.dissectCompoundName("actiondrainer")
+        CompoundName names = CompoundName.parseName("actiondrainer")
         then:
         "actiondrainer" == names.group
         "actiondrainer" == names.cluster
@@ -233,7 +231,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.dissectCompoundName(
+        names = CompoundName.parseName(
                 'cass-nccpintegration-random-junk-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-w0A-z0useast1a-v003')
         then:
         'cass-nccpintegration-random-junk-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-w0A-z0useast1a-v003' == names.group
@@ -253,7 +251,7 @@ class CompoundNameSpec extends Specification {
         'useast1a' == names.zone
 
         when:
-        names = CompoundName.dissectCompoundName('cass-nccpintegration-c0northamerica-d0prod')
+        names = CompoundName.parseName('cass-nccpintegration-c0northamerica-d0prod')
         then:
         'cass-nccpintegration-c0northamerica-d0prod' == names.group
         'cass-nccpintegration-c0northamerica-d0prod' == names.cluster
@@ -272,7 +270,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.dissectCompoundName('cass--my-stuff-c0northamerica-d0prod')
+        names = CompoundName.parseName('cass--my-stuff-c0northamerica-d0prod')
         then:
         'cass--my-stuff-c0northamerica-d0prod' == names.group
         'cass--my-stuff-c0northamerica-d0prod' == names.cluster
@@ -291,7 +289,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.dissectCompoundName('cass-c0northamerica-d0prod')
+        names = CompoundName.parseName('cass-c0northamerica-d0prod')
         then:
         'cass-c0northamerica-d0prod' == names.group
         'cass-c0northamerica-d0prod' == names.cluster
@@ -310,7 +308,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.dissectCompoundName('cass-c0northamerica-d0prod-v102')
+        names = CompoundName.parseName('cass-c0northamerica-d0prod-v102')
         then:
         'cass-c0northamerica-d0prod-v102' == names.group
         'cass-c0northamerica-d0prod' == names.cluster
@@ -329,7 +327,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.dissectCompoundName('cass-v102')
+        names = CompoundName.parseName('cass-v102')
         then:
         'cass-v102' == names.group
         'cass' == names.cluster
