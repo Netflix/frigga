@@ -1,7 +1,6 @@
 package com.netflix.frigga.cluster;
 
-import com.netflix.frigga.CompoundName;
-
+import com.netflix.frigga.autoscaling.AutoScalingGroupName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,7 @@ public class ClusterGrouper {
     public static <T> Map<String, List<T>> groupByClusterName(List<T> asgs, AsgNameProvider<T> nameProvider) {
         Map<String, List<T>> clusterNamesToAsgs = new HashMap<String, List<T>>();
         for (T asg : asgs) {
-            String clusterName = CompoundName.clusterFromGroupName(nameProvider.extractAsgName(asg));
+            String clusterName = AutoScalingGroupName.parseName(nameProvider.extractAsgName(asg)).getCluster();
             if(!clusterNamesToAsgs.containsKey(clusterName)) {
                 clusterNamesToAsgs.put(clusterName, new ArrayList<T>());
             }
