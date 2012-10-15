@@ -1,9 +1,9 @@
-package com.netflix.frigga.cluster;
+package com.netflix.frigga;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ClusterNames {
+public class CompoundName {
 
     private static final String NAME_CHARS = "a-zA-Z0-9._";
     private static final String NAME_HYPHEN_CHARS = "-a-zA-Z0-9._";
@@ -43,12 +43,12 @@ public class ClusterNames {
     private String zone;
 
     public static String stackNameFromGroupName(String autoScalingGroupName) {
-        ClusterNames names = dissectCompoundName(autoScalingGroupName);
+        CompoundName names = dissectCompoundName(autoScalingGroupName);
         return names.stack != null ? names.stack : "";
     }
 
     public static String clusterFromGroupName(String autoScalingGroupName) {
-        ClusterNames names = dissectCompoundName(autoScalingGroupName);
+        CompoundName names = dissectCompoundName(autoScalingGroupName);
         return names.cluster != null ? names.cluster : "";
     }
 
@@ -58,8 +58,8 @@ public class ClusterNames {
      * @param asgName the name of an auto scaling group or load balancer
      * @return ClusterNames a data object containing the component parts of the compound name
      */
-    public static ClusterNames dissectCompoundName(String asgName) {
-        ClusterNames clusterNames = new ClusterNames();
+    public static CompoundName dissectCompoundName(String asgName) {
+        CompoundName clusterNames = new CompoundName();
         if (asgName == null || asgName.trim().isEmpty()) {
             return clusterNames;
         }
@@ -77,7 +77,7 @@ public class ClusterNames {
         Matcher labeledVarsMatcher = LABELED_VARS_PATTERN.matcher(clusterNames.cluster);
         boolean labeledAndUnlabeledMatches = labeledVarsMatcher.matches();
         if (!labeledAndUnlabeledMatches) {
-            return new ClusterNames();
+            return new CompoundName();
         }
         String unlabeledVars = labeledVarsMatcher.group(1);
         String labeledVariables = labeledVarsMatcher.group(2);
