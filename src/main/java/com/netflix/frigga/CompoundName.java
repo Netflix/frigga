@@ -3,12 +3,8 @@ package com.netflix.frigga;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CompoundName {
+public class CompoundName implements NameConstants {
 
-    private static final String NAME_CHARS = "a-zA-Z0-9._";
-    private static final String NAME_HYPHEN_CHARS = "-a-zA-Z0-9._";
-    private static final String PUSH_FORMAT = "v([0-9]{3})";
-    private static final String LABELED_VAR_SEPARATOR = "0";
     private static final String LABELED_VARIABLE = "[a-zA-Z][" + LABELED_VAR_SEPARATOR + "][a-zA-Z0-9]+";
     private static final Pattern PUSH_PATTERN = Pattern.compile(
             "^([" + NAME_HYPHEN_CHARS + "]*)-(" + PUSH_FORMAT + ")$");
@@ -16,15 +12,6 @@ public class CompoundName {
             "^([" + NAME_HYPHEN_CHARS + "]*?)((-" + LABELED_VARIABLE + ")*)$");
     private static final Pattern NAME_PATTERN = Pattern.compile(
             "^([" + NAME_CHARS + "]+)(?:-([" + NAME_CHARS + "]*))?(?:-([" + NAME_HYPHEN_CHARS + "]*?))?$");
-
-    private static final String COUNTRIES_KEY = "c";
-    private static final String DEV_PHASE_KEY = "d";
-    private static final String HARDWARE_KEY = "h";
-    private static final String PARTNERS_KEY = "p";
-    private static final String REVISION_KEY = "r";
-    private static final String USED_BY_KEY = "u";
-    private static final String RED_BLACK_SWAP_KEY = "w";
-    private static final String ZONE_KEY = "z";
 
     private String group;
     private String cluster;
@@ -94,7 +81,7 @@ public class CompoundName {
         return new CompoundName(name);
     }
 
-    private static String extractLabeledVariable(String labeledVariablesString, String labelKey) {
+    private String extractLabeledVariable(String labeledVariablesString, String labelKey) {
         if (labeledVariablesString != null) {
             Pattern labelPattern = Pattern.compile(
                     ".*?-" + labelKey + LABELED_VAR_SEPARATOR + "([" + NAME_CHARS + "]*).*?$");
@@ -107,7 +94,7 @@ public class CompoundName {
         return null;
     }
 
-    private static String checkEmpty(String input) {
+    private String checkEmpty(String input) {
         return (input != null && !input.isEmpty()) ? input : null;
     }
 
