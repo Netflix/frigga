@@ -3,6 +3,10 @@ package com.netflix.frigga;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class that can deconstruct information about AWS Auto Scaling Groups, Load Balancers, Launch Configurations, and
+ * Security Groups created by Asgard based on their name.
+ */
 public class Names implements NameConstants {
 
     private static final Pattern PUSH_PATTERN = Pattern.compile(
