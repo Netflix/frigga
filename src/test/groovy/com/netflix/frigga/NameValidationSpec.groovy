@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class NameValidationSpec extends Specification {
 
-    void testCheckName() {
+    def 'should validate names'() {
         expect:
         NameValidation.checkName("abha")
         NameValidation.checkName("account_batch")
@@ -14,7 +14,7 @@ class NameValidationSpec extends Specification {
         !NameValidation.checkName(null)
     }
 
-    void testDetail() {
+    def 'should validate details'() {
         expect:
         NameValidation.checkDetail("A")
         NameValidation.checkDetail("0")
@@ -28,5 +28,13 @@ class NameValidationSpec extends Specification {
         !NameValidation.checkDetail("")
         !NameValidation.checkDetail(null)
     }
+
+    def 'should validate reserved format'() {
+        expect:
+        NameValidation.usesReservedFormat("v248")
+        NameValidation.usesReservedFormat("abcache-c0USA")
+        !NameValidation.usesReservedFormat("hellojgritman")
+    }
+
 
 }

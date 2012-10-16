@@ -6,8 +6,8 @@ public class NameValidation implements NameConstants {
 
     private static final Pattern NAME_HYPHEN_CHARS_PATTERN = Pattern.compile("^[" + NAME_HYPHEN_CHARS + "]+");
     private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NAME_CHARS + "]+");
-    private static final Pattern LABELED_VARIABLE_PATTERN = Pattern.compile(".*?" + PUSH_FORMAT);
-    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile("^(.*?-)?" + LABELED_VARIABLE + ".*?$");
+    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + PUSH_FORMAT);
+    private static final Pattern LABELED_VARIABLE_PATTERN = Pattern.compile("^(.*?-)?" + LABELED_VARIABLE + ".*?$");
 
     public static String notEmpty(String value, String variableName) {
         if (value == null) {
@@ -50,7 +50,7 @@ public class NameValidation implements NameConstants {
      * @return Boolean true if the name ends with the reserved format
      */
     public static Boolean usesReservedFormat(String name) {
-        return checkMatch(name, PUSH_FORMAT_PATTERN) && checkMatch(name, LABELED_VARIABLE_PATTERN);
+        return checkMatch(name, PUSH_FORMAT_PATTERN) || checkMatch(name, LABELED_VARIABLE_PATTERN);
     }
 
     private static boolean checkMatch(String input, Pattern pattern) {
