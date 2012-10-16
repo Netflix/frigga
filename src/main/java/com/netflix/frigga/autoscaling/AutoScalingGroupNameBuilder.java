@@ -3,7 +3,6 @@ package com.netflix.frigga.autoscaling;
 import com.netflix.frigga.NameBuilder;
 import com.netflix.frigga.NameConstants;
 import com.netflix.frigga.NameValidation;
-import java.util.Map;
 
 public class AutoScalingGroupNameBuilder extends NameBuilder implements NameConstants {
 
@@ -18,23 +17,6 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
     private String usedBy;
     private String redBlackSwap;
     private String zoneVar;
-
-    public AutoScalingGroupNameBuilder fromMap(Map<String,String> params) {
-        AutoScalingGroupNameBuilder builder = new AutoScalingGroupNameBuilder();
-        builder.appName = params.get("appName");
-        String newStack = params.get("newStack");
-        builder.stack = (newStack != null && !newStack.isEmpty()) ? newStack : params.get("stack");
-        builder.detail = params.get("detail");
-        builder.countries = params.get("countries");
-        builder.devPhase = params.get("devPhase");
-        builder.hardware = params.get("hardware");
-        builder.partners = params.get("partners");
-        builder.revision = params.get("revision");
-        builder.usedBy = params.get("usedBy");
-        builder.redBlackSwap = params.get("redBlackSwap");
-        builder.zoneVar = params.get("zoneVar");
-        return builder;
-    }
 
     public String buildGroupName() {
         return buildGroupName(false);
