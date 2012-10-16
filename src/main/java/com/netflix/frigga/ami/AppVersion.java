@@ -4,7 +4,7 @@ import com.netflix.frigga.NameConstants;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AppVersion implements Comparable {
+public class AppVersion implements Comparable<AppVersion> {
 
     /**
      * All of these are valid:
@@ -43,35 +43,45 @@ public class AppVersion implements Comparable {
         return parsedName;
     }
 
-    public int compareTo(Object o) {
-        if (equals (o)) { // if x.equals(y), then x.compareTo(y) should be 0
+    public int compareTo(AppVersion other) {
+        if (this == other) { // if x.equals(y), then x.compareTo(y) should be 0
             return 0;
         }
 
-        if (o == null) {
+        if (other == null) {
             return 1; // equals(null) can never be true, so compareTo(null) should never be 0
         }
 
-        AppVersion other = (AppVersion) o; // ClassCastException is the desired result here
-
-        int comparison = packageName.compareTo(other.packageName);
+        int comparison = nullSafeStringComparator(packageName, other.packageName);
         if (comparison != 0) {
             return comparison;
         }
-        comparison = version.compareTo(other.version);
+        comparison = nullSafeStringComparator(version, other.version);
         if (comparison != 0) {
             return comparison;
         }
-        comparison = buildJobName.compareTo(other.buildJobName);
+        comparison = nullSafeStringComparator(buildJobName, other.buildJobName);
         if (comparison != 0) {
             return comparison;
         }
-        comparison = buildNumber.compareTo(other.buildNumber);
+        comparison = nullSafeStringComparator(buildNumber, other.buildNumber);
         if (comparison != 0) {
             return comparison;
         }
-        comparison = changelist.compareTo(other.changelist);
+        comparison = nullSafeStringComparator(changelist, other.changelist);
         return comparison;
+    }
+
+    private int nullSafeStringComparator(final String one, final String two) {
+        if (one == null ^ two == null) {
+            return (one == null) ? -1 : 1;
+        }
+
+        if (one == null && two == null) {
+            return 0;
+        }
+
+        return one.compareTo(two);
     }
 
     @Override
