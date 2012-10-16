@@ -22,6 +22,9 @@ public class BaseAmiInfo {
 
     public static BaseAmiInfo parseDescription(String imageDescription) {
         BaseAmiInfo info = new BaseAmiInfo();
+        if (imageDescription == null) {
+            return info;
+        }
         info.baseAmiId = extractBaseAmiId(imageDescription);
         info.baseAmiName = extractBaseAmiName(imageDescription);
         if (info.baseAmiName != null) {

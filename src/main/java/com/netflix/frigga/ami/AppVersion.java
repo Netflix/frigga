@@ -27,6 +27,9 @@ public class AppVersion implements Comparable {
     }
 
     public static AppVersion parseName(String amiName) {
+        if (amiName == null) {
+            return null;
+        }
         Matcher matcher = APP_VERSION_PATTERN.matcher(amiName);
         if (!matcher.matches()) {
             return null;
