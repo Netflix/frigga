@@ -93,7 +93,50 @@ public class BaseAmiInfo {
     }
 
     public Date getBaseAmiDate() {
-        return baseAmiDate;
+        return (Date) baseAmiDate.clone();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((baseAmiDate == null) ? 0 : baseAmiDate.hashCode());
+        result = prime * result + ((baseAmiId == null) ? 0 : baseAmiId.hashCode());
+        result = prime * result + ((baseAmiName == null) ? 0 : baseAmiName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BaseAmiInfo other = (BaseAmiInfo) obj;
+        if (baseAmiDate == null) {
+            if (other.baseAmiDate != null)
+                return false;
+        } else if (!baseAmiDate.equals(other.baseAmiDate))
+            return false;
+        if (baseAmiId == null) {
+            if (other.baseAmiId != null)
+                return false;
+        } else if (!baseAmiId.equals(other.baseAmiId))
+            return false;
+        if (baseAmiName == null) {
+            if (other.baseAmiName != null)
+                return false;
+        } else if (!baseAmiName.equals(other.baseAmiName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseAmiInfo [baseAmiId=" + baseAmiId + ", baseAmiName=" + baseAmiName + ", baseAmiDate=" + baseAmiDate
+                + "]";
     }
 
 }

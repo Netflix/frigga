@@ -132,4 +132,53 @@ public class AppVersion implements Comparable<AppVersion> {
         return changelist;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((buildJobName == null) ? 0 : buildJobName.hashCode());
+        result = prime * result + ((buildNumber == null) ? 0 : buildNumber.hashCode());
+        result = prime * result + ((changelist == null) ? 0 : changelist.hashCode());
+        result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
+        result = prime * result + ((version == null) ? 0 : version.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AppVersion other = (AppVersion) obj;
+        if (buildJobName == null) {
+            if (other.buildJobName != null)
+                return false;
+        } else if (!buildJobName.equals(other.buildJobName))
+            return false;
+        if (buildNumber == null) {
+            if (other.buildNumber != null)
+                return false;
+        } else if (!buildNumber.equals(other.buildNumber))
+            return false;
+        if (changelist == null) {
+            if (other.changelist != null)
+                return false;
+        } else if (!changelist.equals(other.changelist))
+            return false;
+        if (packageName == null) {
+            if (other.packageName != null)
+                return false;
+        } else if (!packageName.equals(other.packageName))
+            return false;
+        if (version == null) {
+            if (other.version != null)
+                return false;
+        } else if (!version.equals(other.version))
+            return false;
+        return true;
+    }
+
 }

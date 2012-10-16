@@ -176,4 +176,121 @@ public class Names implements NameConstants {
         return zone;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((app == null) ? 0 : app.hashCode());
+        result = prime * result + ((cluster == null) ? 0 : cluster.hashCode());
+        result = prime * result + ((countries == null) ? 0 : countries.hashCode());
+        result = prime * result + ((detail == null) ? 0 : detail.hashCode());
+        result = prime * result + ((devPhase == null) ? 0 : devPhase.hashCode());
+        result = prime * result + ((group == null) ? 0 : group.hashCode());
+        result = prime * result + ((hardware == null) ? 0 : hardware.hashCode());
+        result = prime * result + ((partners == null) ? 0 : partners.hashCode());
+        result = prime * result + ((push == null) ? 0 : push.hashCode());
+        result = prime * result + ((redBlackSwap == null) ? 0 : redBlackSwap.hashCode());
+        result = prime * result + ((revision == null) ? 0 : revision.hashCode());
+        result = prime * result + ((sequence == null) ? 0 : sequence.hashCode());
+        result = prime * result + ((stack == null) ? 0 : stack.hashCode());
+        result = prime * result + ((usedBy == null) ? 0 : usedBy.hashCode());
+        result = prime * result + ((zone == null) ? 0 : zone.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Names other = (Names) obj;
+        if (app == null) {
+            if (other.app != null)
+                return false;
+        } else if (!app.equals(other.app))
+            return false;
+        if (cluster == null) {
+            if (other.cluster != null)
+                return false;
+        } else if (!cluster.equals(other.cluster))
+            return false;
+        if (countries == null) {
+            if (other.countries != null)
+                return false;
+        } else if (!countries.equals(other.countries))
+            return false;
+        if (detail == null) {
+            if (other.detail != null)
+                return false;
+        } else if (!detail.equals(other.detail))
+            return false;
+        if (devPhase == null) {
+            if (other.devPhase != null)
+                return false;
+        } else if (!devPhase.equals(other.devPhase))
+            return false;
+        if (group == null) {
+            if (other.group != null)
+                return false;
+        } else if (!group.equals(other.group))
+            return false;
+        if (hardware == null) {
+            if (other.hardware != null)
+                return false;
+        } else if (!hardware.equals(other.hardware))
+            return false;
+        if (partners == null) {
+            if (other.partners != null)
+                return false;
+        } else if (!partners.equals(other.partners))
+            return false;
+        if (push == null) {
+            if (other.push != null)
+                return false;
+        } else if (!push.equals(other.push))
+            return false;
+        if (redBlackSwap == null) {
+            if (other.redBlackSwap != null)
+                return false;
+        } else if (!redBlackSwap.equals(other.redBlackSwap))
+            return false;
+        if (revision == null) {
+            if (other.revision != null)
+                return false;
+        } else if (!revision.equals(other.revision))
+            return false;
+        if (sequence == null) {
+            if (other.sequence != null)
+                return false;
+        } else if (!sequence.equals(other.sequence))
+            return false;
+        if (stack == null) {
+            if (other.stack != null)
+                return false;
+        } else if (!stack.equals(other.stack))
+            return false;
+        if (usedBy == null) {
+            if (other.usedBy != null)
+                return false;
+        } else if (!usedBy.equals(other.usedBy))
+            return false;
+        if (zone == null) {
+            if (other.zone != null)
+                return false;
+        } else if (!zone.equals(other.zone))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Names [group=" + group + ", cluster=" + cluster + ", app=" + app + ", stack=" + stack + ", detail="
+                + detail + ", push=" + push + ", sequence=" + sequence + ", countries=" + countries + ", devPhase="
+                + devPhase + ", hardware=" + hardware + ", partners=" + partners + ", revision=" + revision
+                + ", usedBy=" + usedBy + ", redBlackSwap=" + redBlackSwap + ", zone=" + zone + "]";
+    }
+
 }
