@@ -2,11 +2,11 @@ package com.netflix.frigga
 
 import spock.lang.Specification
 
-class CompoundNameSpec extends Specification {
+class NamesSpec extends Specification {
 
     def 'should dissect name with dot'() {
         when:
-        CompoundName names = CompoundName.parseName("chukwa.collector_1-v889")
+        Names names = Names.parseName("chukwa.collector_1-v889")
 
         then:
         "chukwa.collector_1-v889" == names.group
@@ -20,7 +20,7 @@ class CompoundNameSpec extends Specification {
 
     def 'should return empty obejct for invalid'() {
         when:
-        CompoundName names = CompoundName.parseName('nccp-moviecontrol%27')
+        Names names = Names.parseName('nccp-moviecontrol%27')
 
         then:
         null == names.group
@@ -34,7 +34,7 @@ class CompoundNameSpec extends Specification {
 
     def 'should dissect group names'() {
         when:
-        CompoundName names = CompoundName.parseName(null)
+        Names names = Names.parseName(null)
         then:
         null == names.group
         null == names.cluster
@@ -45,7 +45,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("actiondrainer")
+        names = Names.parseName("actiondrainer")
         then:
         "actiondrainer" == names.group
         "actiondrainer" == names.cluster
@@ -56,7 +56,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("actiondrainer-v003")
+        names = Names.parseName("actiondrainer-v003")
         then:
         "actiondrainer-v003" == names.group
         "actiondrainer" == names.cluster
@@ -67,7 +67,7 @@ class CompoundNameSpec extends Specification {
         3 == names.sequence
 
         when:
-        names = CompoundName.parseName("actiondrainer--v003")
+        names = Names.parseName("actiondrainer--v003")
         then:
         "actiondrainer--v003" == names.group
         "actiondrainer-" == names.cluster
@@ -78,7 +78,7 @@ class CompoundNameSpec extends Specification {
         3 == names.sequence
 
         when:
-        names = CompoundName.parseName("actiondrainer---v003")
+        names = Names.parseName("actiondrainer---v003")
         then:
         "actiondrainer---v003" == names.group
         "actiondrainer--" == names.cluster
@@ -89,7 +89,7 @@ class CompoundNameSpec extends Specification {
         3 == names.sequence
 
         when:
-        names = CompoundName.parseName("api-test-A")
+        names = Names.parseName("api-test-A")
         then:
         "api-test-A" == names.group
         "api-test-A" == names.cluster
@@ -99,7 +99,7 @@ class CompoundNameSpec extends Specification {
         null == names.push
 
         when:
-        names = CompoundName.parseName("api-test-A-v406")
+        names = Names.parseName("api-test-A-v406")
         then:
         "api-test-A-v406" == names.group
         "api-test-A" == names.cluster
@@ -110,7 +110,7 @@ class CompoundNameSpec extends Specification {
         406 == names.sequence
 
         when:
-        names = CompoundName.parseName("api-test101")
+        names = Names.parseName("api-test101")
         then:
         "api-test101" == names.group
         "api-test101" == names.cluster
@@ -121,7 +121,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("chukwacollector_1")
+        names = Names.parseName("chukwacollector_1")
         then:
         "chukwacollector_1" == names.group
         "chukwacollector_1" == names.cluster
@@ -132,7 +132,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("chukwacollector_1-v889")
+        names = Names.parseName("chukwacollector_1-v889")
         then:
         "chukwacollector_1-v889" == names.group
         "chukwacollector_1" == names.cluster
@@ -143,7 +143,7 @@ class CompoundNameSpec extends Specification {
         889 == names.sequence
 
         when:
-        names = CompoundName.parseName("api-test-A")
+        names = Names.parseName("api-test-A")
         then:
         "api-test-A" == names.group
         "api-test-A" == names.cluster
@@ -154,7 +154,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("discovery-dev")
+        names = Names.parseName("discovery-dev")
         then:
         "discovery-dev" == names.group
         "discovery-dev" == names.cluster
@@ -165,7 +165,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("discovery-us-east-1d")
+        names = Names.parseName("discovery-us-east-1d")
         then:
         "discovery-us-east-1d" == names.group
         "discovery-us-east-1d" == names.cluster
@@ -176,7 +176,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("evcache-us-east-1d-0")
+        names = Names.parseName("evcache-us-east-1d-0")
         then:
         "evcache-us-east-1d-0" == names.group
         "evcache-us-east-1d-0" == names.cluster
@@ -187,7 +187,7 @@ class CompoundNameSpec extends Specification {
         null == names.sequence
 
         when:
-        names = CompoundName.parseName("evcache-us-east-1d-0-v223")
+        names = Names.parseName("evcache-us-east-1d-0-v223")
         then:
         "evcache-us-east-1d-0-v223" == names.group
         "evcache-us-east-1d-0" == names.cluster
@@ -198,7 +198,7 @@ class CompoundNameSpec extends Specification {
         223 == names.sequence
 
         when:
-        names = CompoundName.parseName("videometadata-navigator-integration-240-CAN")
+        names = Names.parseName("videometadata-navigator-integration-240-CAN")
         then:
         "videometadata-navigator-integration-240-CAN" == names.group
         "videometadata-navigator-integration-240-CAN" == names.cluster
@@ -212,7 +212,7 @@ class CompoundNameSpec extends Specification {
 
     void testDissectGroupNameWithLabeledVariables() {
         when:
-        CompoundName names = CompoundName.parseName("actiondrainer")
+        Names names = Names.parseName("actiondrainer")
         then:
         "actiondrainer" == names.group
         "actiondrainer" == names.cluster
@@ -231,7 +231,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.parseName(
+        names = Names.parseName(
                 'cass-nccpintegration-random-junk-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-w0A-z0useast1a-v003')
         then:
         'cass-nccpintegration-random-junk-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-w0A-z0useast1a-v003' == names.group
@@ -251,7 +251,7 @@ class CompoundNameSpec extends Specification {
         'useast1a' == names.zone
 
         when:
-        names = CompoundName.parseName('cass-nccpintegration-c0northamerica-d0prod')
+        names = Names.parseName('cass-nccpintegration-c0northamerica-d0prod')
         then:
         'cass-nccpintegration-c0northamerica-d0prod' == names.group
         'cass-nccpintegration-c0northamerica-d0prod' == names.cluster
@@ -270,7 +270,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.parseName('cass--my-stuff-c0northamerica-d0prod')
+        names = Names.parseName('cass--my-stuff-c0northamerica-d0prod')
         then:
         'cass--my-stuff-c0northamerica-d0prod' == names.group
         'cass--my-stuff-c0northamerica-d0prod' == names.cluster
@@ -289,7 +289,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.parseName('cass-c0northamerica-d0prod')
+        names = Names.parseName('cass-c0northamerica-d0prod')
         then:
         'cass-c0northamerica-d0prod' == names.group
         'cass-c0northamerica-d0prod' == names.cluster
@@ -308,7 +308,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.parseName('cass-c0northamerica-d0prod-v102')
+        names = Names.parseName('cass-c0northamerica-d0prod-v102')
         then:
         'cass-c0northamerica-d0prod-v102' == names.group
         'cass-c0northamerica-d0prod' == names.cluster
@@ -327,7 +327,7 @@ class CompoundNameSpec extends Specification {
         null == names.zone
 
         when:
-        names = CompoundName.parseName('cass-v102')
+        names = Names.parseName('cass-v102')
         then:
         'cass-v102' == names.group
         'cass' == names.cluster
@@ -348,24 +348,24 @@ class CompoundNameSpec extends Specification {
 
     void testExtractLabeledVariable() {
         expect:
-        'sony' == CompoundName.extractLabeledVariable('-p0sony', 'p')
-        'northamerica' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'c')
-        'prod' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'd')
-        'gamesystems' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'h')
-        'vizio' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'p')
-        '27' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'r')
-        'nccp' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'u')
-        'A' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'x')
-        'useast1a' == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'z')
-        null == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'a')
-        null == CompoundName.extractLabeledVariable('', 'a')
-        null == CompoundName.extractLabeledVariable(null, 'a')
-        null == CompoundName.extractLabeledVariable(null, '')
-        null == CompoundName.extractLabeledVariable(null, null)
-        null == CompoundName.extractLabeledVariable('', null)
-        null == CompoundName.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', null)
-        null == CompoundName.extractLabeledVariable('-p0sony', '')
-        null == CompoundName.extractLabeledVariable('-p0sony', null)
+        'sony' == Names.extractLabeledVariable('-p0sony', 'p')
+        'northamerica' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'c')
+        'prod' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'd')
+        'gamesystems' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'h')
+        'vizio' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'p')
+        '27' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'r')
+        'nccp' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'u')
+        'A' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'x')
+        'useast1a' == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'z')
+        null == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'a')
+        null == Names.extractLabeledVariable('', 'a')
+        null == Names.extractLabeledVariable(null, 'a')
+        null == Names.extractLabeledVariable(null, '')
+        null == Names.extractLabeledVariable(null, null)
+        null == Names.extractLabeledVariable('', null)
+        null == Names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', null)
+        null == Names.extractLabeledVariable('-p0sony', '')
+        null == Names.extractLabeledVariable('-p0sony', null)
     }
 
 }

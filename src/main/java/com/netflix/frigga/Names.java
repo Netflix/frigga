@@ -3,9 +3,8 @@ package com.netflix.frigga;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CompoundName implements NameConstants {
+public class Names implements NameConstants {
 
-    private static final String LABELED_VARIABLE = "[a-zA-Z][" + LABELED_VAR_SEPARATOR + "][a-zA-Z0-9]+";
     private static final Pattern PUSH_PATTERN = Pattern.compile(
             "^([" + NAME_HYPHEN_CHARS + "]*)-(" + PUSH_FORMAT + ")$");
     private static final Pattern LABELED_VARS_PATTERN = Pattern.compile(
@@ -29,7 +28,7 @@ public class CompoundName implements NameConstants {
     private String redBlackSwap;
     private String zone;
 
-    protected CompoundName(String name) {
+    protected Names(String name) {
         if (name == null || name.trim().isEmpty()) {
             return;
         }
@@ -77,8 +76,8 @@ public class CompoundName implements NameConstants {
      * @param name the name of an auto scaling group or load balancer
      * @return ClusterNames a data object containing the component parts of the compound name
      */
-    public static CompoundName parseName(String name) {
-        return new CompoundName(name);
+    public static Names parseName(String name) {
+        return new Names(name);
     }
 
     private String extractLabeledVariable(String labeledVariablesString, String labelKey) {
