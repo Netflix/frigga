@@ -9,15 +9,21 @@ checkstyle {
 // FindBugs
 apply plugin: 'findbugs'
 //tasks.withType(Findbugs) { reports.html.enabled true }
+findbugs {
+    ignoreFailures = true
+}
 
 // PMD
 apply plugin: 'pmd'
+pmd {
+	ignoreFailures = true
+}
 //tasks.withType(Pmd) { reports.html.enabled true }
 
 apply plugin: 'cobertura'
 cobertura {
     sourceDirs = sourceSets.main.java.srcDirs
-    format = 'html'
+    format = 'xml'
     includes = ['**/*.java', '**/*.groovy']
     excludes = []
 }
