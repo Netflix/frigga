@@ -6,6 +6,8 @@ public class NameValidation implements NameConstants {
 
     private static final Pattern NAME_HYPHEN_CHARS_PATTERN = Pattern.compile("^[" + NAME_HYPHEN_CHARS + "]+");
     private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NAME_CHARS + "]+");
+    private static final Pattern LABELED_VARIABLE_PATTERN = Pattern.compile(".*?" + PUSH_FORMAT);
+    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile("^(.*?-)?" + LABELED_VARIABLE + ".*?$");
 
     public static String notEmpty(String value, String variableName) {
         if (value == null) {
@@ -25,7 +27,7 @@ public class NameValidation implements NameConstants {
      * @return true if the name is valid
      */
     public static boolean checkName(String name) {
-        return name != null && NAME_CHARS_PATTERN.matcher(name).matches();
+        return checkMatch(name, NAME_CHARS_PATTERN);
     }
 
     /**
@@ -36,8 +38,23 @@ public class NameValidation implements NameConstants {
      * @param detail the detail string to validate
      * @return true if the detail is valid
      */
-    public static Boolean checkDetail(String detail) {
-        return detail != null && NAME_HYPHEN_CHARS_PATTERN.matcher(detail).matches();
+    public static boolean checkDetail(String detail) {
+        return checkMatch(detail, NAME_HYPHEN_CHARS_PATTERN);
+    }
+
+    /**
+     * Determines whether a name ends with the reserved format -v000 where 0 represents any digit, or starts with the
+     * reserved format z0 where z is any letter, or contains a hyphen-separated token that starts with the z0 format.
+     *
+     * @param name to inspect
+     * @return Boolean true if the name ends with the reserved format
+     */
+    public static Boolean usesReservedFormat(String name) {
+        return checkMatch(name, PUSH_FORMAT_PATTERN) && checkMatch(name, LABELED_VARIABLE_PATTERN);
+    }
+
+    private static boolean checkMatch(String input, Pattern pattern) {
+        return input != null && pattern.matcher(input).matches();
     }
 
 }

@@ -7,6 +7,7 @@ public interface NameConstants {
     static final String NAME_HYPHEN_CHARS = "-a-zA-Z0-9._";
     static final String PUSH_FORMAT = "v([0-9]{3})";
     static final String LABELED_VAR_SEPARATOR = "0";
+    static final String LABELED_VARIABLE = "[a-zA-Z][" + LABELED_VAR_SEPARATOR + "][a-zA-Z0-9]+";
 
     static final String COUNTRIES_KEY = "c";
     static final String DEV_PHASE_KEY = "d";
