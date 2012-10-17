@@ -93,7 +93,7 @@ public class BaseAmiInfo {
     }
 
     public Date getBaseAmiDate() {
-        return (Date) baseAmiDate.clone();
+        return baseAmiDate != null ? (Date) baseAmiDate.clone() : null;
     }
 
     @Override
