@@ -19,6 +19,9 @@ import com.netflix.frigga.NameBuilder;
 import com.netflix.frigga.NameConstants;
 import com.netflix.frigga.NameValidation;
 
+/**
+ * Logic for constructing the name of a new auto scaling group in Asgard.
+ */
 public class AutoScalingGroupNameBuilder extends NameBuilder implements NameConstants {
 
     private String appName;
@@ -37,6 +40,11 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
         return buildGroupName(false);
     }
 
+    /**
+     * Construct and return the name of the auto scaling group.
+     *
+     * @return auto scaling group name
+     */
     public String buildGroupName(Boolean doValidation) {
         NameValidation.notEmpty(appName, "appName");
 

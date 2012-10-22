@@ -90,10 +90,11 @@ public class Names implements NameConstants {
     }
 
     /**
-     * Breaks down the name of an auto scaling group or load balancer into its component parts.
+     * Breaks down the name of an auto scaling group, security group, or load balancer created by Asgard into its
+     * component parts.
      *
-     * @param name the name of an auto scaling group or load balancer
-     * @return ClusterNames a data object containing the component parts of the compound name
+     * @param name the name of an auto scaling group, security group, or load balancer
+     * @return bean containing the component parts of the compound name
      */
     public static Names parseName(String name) {
         return new Names(name);

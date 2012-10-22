@@ -20,6 +20,10 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Bean containing the various pieces of information available from the description of an AMI created by Netflix's
+ * bakery. Construct using the {@link parseDescription} factory method.
+ */
 public class BaseAmiInfo {
 
     private static final String IMAGE_ID = "ami-[a-z0-9]{8}";
@@ -35,6 +39,12 @@ public class BaseAmiInfo {
 
     private BaseAmiInfo() {}
 
+    /**
+     * Parse an AMI description into its component parts.
+     *
+     * @param imageDescription description field of an AMI created by Netflix's bakery
+     * @return bean representing the component parts of the AMI description
+     */
     public static BaseAmiInfo parseDescription(String imageDescription) {
         BaseAmiInfo info = new BaseAmiInfo();
         if (imageDescription == null) {

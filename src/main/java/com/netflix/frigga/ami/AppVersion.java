@@ -19,6 +19,10 @@ import com.netflix.frigga.NameConstants;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Java bean containing the various pieces of information available from the name of an AMI created by Netflix's
+ * bakery. Construct using the {@link parseName} factory method.
+ */
 public class AppVersion implements Comparable<AppVersion> {
 
     /**
@@ -41,6 +45,12 @@ public class AppVersion implements Comparable<AppVersion> {
     private AppVersion() {
     }
 
+    /**
+     * Parse an AMI name into its component parts.
+     *
+     * @param amiName name of a AMI formatted by Netlfix's bakery
+     * @return bean representing the component parts of the AMI name
+     */
     public static AppVersion parseName(String amiName) {
         if (amiName == null) {
             return null;
@@ -58,6 +68,7 @@ public class AppVersion implements Comparable<AppVersion> {
         return parsedName;
     }
 
+    @Override
     public int compareTo(AppVersion other) {
         if (this == other) { // if x.equals(y), then x.compareTo(y) should be 0
             return 0;

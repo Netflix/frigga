@@ -15,7 +15,9 @@
  */
 package com.netflix.frigga;
 
-
+/**
+ * Constants used in name parsing, name construction, and name validation.
+ */
 public interface NameConstants {
 
     static final String NAME_CHARS = "a-zA-Z0-9._";
