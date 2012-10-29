@@ -17,6 +17,9 @@ package com.netflix.frigga;
 
 import java.util.regex.Pattern;
 
+/**
+ * Contains static validation methods for checking if a name conforms to Asgard naming standards.
+ */
 public class NameValidation implements NameConstants {
 
     private static final Pattern NAME_HYPHEN_CHARS_PATTERN = Pattern.compile("^[" + NAME_HYPHEN_CHARS + "]+");
