@@ -36,6 +36,11 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
     private String redBlackSwap;
     private String zoneVar;
 
+    /**
+     * Construct and return the name of the auto scaling group without validation.
+     *
+     * @return auto scaling group name
+     */
     public String buildGroupName() {
         return buildGroupName(false);
     }
@@ -43,13 +48,15 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
     /**
      * Construct and return the name of the auto scaling group.
      *
+     * @param doValidation validate the supplied parameters before constructing the name
      * @return auto scaling group name
      */
     public String buildGroupName(Boolean doValidation) {
         NameValidation.notEmpty(appName, "appName");
 
         if (doValidation) {
-            validateNames(appName, stack, countries, devPhase, hardware, partners, revision, usedBy, redBlackSwap, zoneVar);
+            validateNames(appName, stack, countries, devPhase, hardware, partners, revision, usedBy, redBlackSwap,
+                    zoneVar);
             if (detail != null && !detail.isEmpty() && !NameValidation.checkDetail(detail)) {
                 throw new IllegalArgumentException("(Use alphanumeric characters only)");
             }

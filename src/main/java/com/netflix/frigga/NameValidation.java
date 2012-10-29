@@ -27,6 +27,8 @@ public class NameValidation implements NameConstants {
     private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + PUSH_FORMAT);
     private static final Pattern LABELED_VARIABLE_PATTERN = Pattern.compile("^(.*?-)?" + LABELED_VARIABLE + ".*?$");
 
+    private NameValidation() { }
+
     /**
      * Validates if provided value is non-null and non-empty.
      *

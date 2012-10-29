@@ -26,6 +26,8 @@ import java.util.Map;
  */
 public class ClusterGrouper {
 
+    private ClusterGrouper() { }
+
     /**
      * Group a list of ASG related objects by cluster name.
      *
@@ -37,7 +39,7 @@ public class ClusterGrouper {
         Map<String, List<T>> clusterNamesToAsgs = new HashMap<String, List<T>>();
         for (T asg : inputs) {
             String clusterName = Names.parseName(nameProvider.extractAsgName(asg)).getCluster();
-            if(!clusterNamesToAsgs.containsKey(clusterName)) {
+            if (!clusterNamesToAsgs.containsKey(clusterName)) {
                 clusterNamesToAsgs.put(clusterName, new ArrayList<T>());
             }
             clusterNamesToAsgs.get(clusterName).add(asg);

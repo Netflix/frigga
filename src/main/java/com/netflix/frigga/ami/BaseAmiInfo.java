@@ -37,7 +37,7 @@ public class BaseAmiInfo {
     private String baseAmiName;
     private Date baseAmiDate;
 
-    private BaseAmiInfo() {}
+    private BaseAmiInfo() { }
 
     /**
      * Parse an AMI description into its component parts.
