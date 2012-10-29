@@ -44,19 +44,13 @@
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod">
-          <property name="scope" value="package"/>
+          <property name="scope" value="public"/>
           <property name="allowMissingParamTags" value="true"/>
           <property name="allowMissingThrowsTags" value="true"/>
           <property name="allowMissingReturnTag" value="true"/>
           <property name="allowThrowsTagsForSubclasses" value="true"/>
           <property name="allowUndeclaredRTE" value="true"/>
           <property name="allowMissingPropertyJavadoc" value="true"/>
-        </module>
-        <module name="JavadocType">
-          <property name="scope" value="package"/>
-        </module>
-        <module name="JavadocVariable">
-          <property name="scope" value="package"/>
         </module>
         <module name="JavadocStyle">
           <property name="checkEmptyJavadoc" value="true"/>
@@ -121,7 +115,6 @@
           <property name="option" value="text"/>
         </module>
         <module name="LeftCurly"/>
-        <module name="NeedBraces"/>
         <module name="RightCurly"/>
 
 
@@ -138,9 +131,6 @@
         </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber">
-          <property name="severity" value="warning"/>
-        </module>
         <module name="MissingSwitchDefault"/>
         <!-- Problem with finding exception types... -->
         <module name="RedundantThrows">
@@ -154,9 +144,7 @@
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <!-- <module name="DesignForExtension"/> -->
-        <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
-        <module name="InterfaceIsType"/>
         <module name="VisibilityModifier"/>
 
 
