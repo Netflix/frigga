@@ -21,20 +21,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Utility methods for grouping ASG related objects by cluster. The cluster name is derived from the name of the ASG.
+ */
 public class ClusterGrouper {
 
-    public static <T> Map<String, List<T>> groupByClusterName(List<T> asgs, AsgNameProvider<T> nameProvider) {
+    private ClusterGrouper() { }
+
+    /**
+     * Groups a list of ASG related objects by cluster name.
+     *
+     * @param <T> Type to group
+     * @param inputs list of objects associated with an ASG
+     * @param nameProvider strategy object used to extract the ASG name of the object type of the input list
+     * @return map of cluster name to list of input object
+     */
+    public static <T> Map<String, List<T>> groupByClusterName(List<T> inputs, AsgNameProvider<T> nameProvider) {
         Map<String, List<T>> clusterNamesToAsgs = new HashMap<String, List<T>>();
-        for (T asg : asgs) {
-            String clusterName = Names.parseName(nameProvider.extractAsgName(asg)).getCluster();
-            if(!clusterNamesToAsgs.containsKey(clusterName)) {
+        for (T input : inputs) {
+            String clusterName = Names.parseName(nameProvider.extractAsgName(input)).getCluster();
+            if (!clusterNamesToAsgs.containsKey(clusterName)) {
                 clusterNamesToAsgs.put(clusterName, new ArrayList<T>());
             }
-            clusterNamesToAsgs.get(clusterName).add(asg);
+            clusterNamesToAsgs.get(clusterName).add(input);
         }
         return clusterNamesToAsgs;
     }
 
+    /**
+     * Groups a list of ASG names by cluster name.
+     *
+     * @param asgNames list of asg names
+     * @return map of cluster name to list of ASG names in that cluster
+     */
     public static Map<String, List<String>> groupAsgNamesByClusterName(List<String> asgNames) {
         return groupByClusterName(asgNames, new AsgNameProvider<String>() {
             public String extractAsgName(String asgName) {

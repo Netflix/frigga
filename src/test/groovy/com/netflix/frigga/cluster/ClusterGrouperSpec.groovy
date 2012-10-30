@@ -2,7 +2,7 @@ package com.netflix.frigga.cluster
 
 import spock.lang.Specification
 
-class ClusterGrouperSpec extends Specification{
+class ClusterGrouperSpec extends Specification {
 
     def 'should group list of asg names'() {
         when:
