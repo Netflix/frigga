@@ -20,12 +20,14 @@ import java.util.regex.Pattern;
 /**
  * Contains static validation methods for checking if a name conforms to Asgard naming standards.
  */
-public class NameValidation implements NameConstants {
+public class NameValidation {
 
-    private static final Pattern NAME_HYPHEN_CHARS_PATTERN = Pattern.compile("^[" + NAME_HYPHEN_CHARS + "]+");
-    private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NAME_CHARS + "]+");
-    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + PUSH_FORMAT);
-    private static final Pattern LABELED_VARIABLE_PATTERN = Pattern.compile("^(.*?-)?" + LABELED_VARIABLE + ".*?$");
+    private static final Pattern NAME_HYPHEN_CHARS_PATTERN =
+            Pattern.compile("^[" + NameConstants.NAME_HYPHEN_CHARS + "]+");
+    private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NameConstants.NAME_CHARS + "]+");
+    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + NameConstants.PUSH_FORMAT);
+    private static final Pattern LABELED_VARIABLE_PATTERN =
+            Pattern.compile("^(.*?-)?" + NameConstants.LABELED_VARIABLE + ".*?$");
 
     private NameValidation() { }
 
@@ -34,7 +36,7 @@ public class NameValidation implements NameConstants {
      *
      * @param value the string to validate
      * @param variableName name of the variable to include in error messages
-     * @return true if the name is valid
+     * @return the value parameter if valid, throws an exception otherwise
      */
     public static String notEmpty(String value, String variableName) {
         if (value == null) {

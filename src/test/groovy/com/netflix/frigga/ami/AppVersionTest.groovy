@@ -83,8 +83,8 @@ class AppVersionTest extends Specification {
 
     boolean assertIsLessThan(AppVersion lesser, AppVersion greater) {
         lesser != greater &&
-            0 > (lesser.compareTo(greater)) &&
-            0 < (greater.compareTo(lesser))
+            0 > lesser.compareTo(greater) &&
+            0 < greater.compareTo(lesser)
     }
 
     AppVersion newAppVersion(packageName, version, buildJobName, buildNumber, changelist) {

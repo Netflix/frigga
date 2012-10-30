@@ -18,7 +18,7 @@ class NamesSpec extends Specification {
         889 == names.sequence
     }
 
-    def 'should return empty obejct for invalid'() {
+    def 'should return empty object for invalid'() {
         when:
         Names names = Names.parseName('nccp-moviecontrol%27')
 

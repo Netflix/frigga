@@ -27,7 +27,7 @@ public class LoadBalancerNameBuilder extends NameBuilder {
     private String detail;
 
     /**
-     * Construct and return the name of the load balancer.
+     * Constructs and returns the name of the load balancer.
      *
      * @return load balancer name
      */

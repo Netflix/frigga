@@ -17,11 +17,13 @@ package com.netflix.frigga.cluster;
 
 /**
  * Command object for extracting the ASG name from the provided type. Used with grouping ASGs by cluster.
+ *
+ * @param <T> Type to extract ASG name from
  */
 public interface AsgNameProvider<T> {
 
     /**
-     * Extract the ASG name from an input object.
+     * Extracts the ASG name from an input object.
      *
      * @param object the object to inspect
      * @return asg name of the provided object

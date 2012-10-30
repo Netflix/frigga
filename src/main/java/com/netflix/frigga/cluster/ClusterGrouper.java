@@ -29,20 +29,21 @@ public class ClusterGrouper {
     private ClusterGrouper() { }
 
     /**
-     * Group a list of ASG related objects by cluster name.
+     * Groups a list of ASG related objects by cluster name.
      *
+     * @param <T> Type to group
      * @param inputs list of objects associated with an ASG
      * @param nameProvider strategy object used to extract the ASG name of the object type of the input list
      * @return map of cluster name to list of input object
      */
     public static <T> Map<String, List<T>> groupByClusterName(List<T> inputs, AsgNameProvider<T> nameProvider) {
         Map<String, List<T>> clusterNamesToAsgs = new HashMap<String, List<T>>();
-        for (T asg : inputs) {
-            String clusterName = Names.parseName(nameProvider.extractAsgName(asg)).getCluster();
+        for (T input : inputs) {
+            String clusterName = Names.parseName(nameProvider.extractAsgName(input)).getCluster();
             if (!clusterNamesToAsgs.containsKey(clusterName)) {
                 clusterNamesToAsgs.put(clusterName, new ArrayList<T>());
             }
-            clusterNamesToAsgs.get(clusterName).add(asg);
+            clusterNamesToAsgs.get(clusterName).add(input);
         }
         return clusterNamesToAsgs;
     }

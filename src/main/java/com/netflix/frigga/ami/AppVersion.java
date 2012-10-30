@@ -46,9 +46,9 @@ public class AppVersion implements Comparable<AppVersion> {
     }
 
     /**
-     * Parse an AMI name into its component parts.
+     * Parses an AMI name into its component parts.
      *
-     * @param amiName name of a AMI formatted by Netlfix's bakery
+     * @param amiName name of a AMI formatted by Netflix's bakery
      * @return bean representing the component parts of the AMI name
      */
     public static AppVersion parseName(String amiName) {
@@ -137,7 +137,7 @@ public class AppVersion implements Comparable<AppVersion> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("AmiName [packageName=").append(packageName).append(", version=").append(version)
+        builder.append("AppVersion [packageName=").append(packageName).append(", version=").append(version)
                 .append(", buildJobName=").append(buildJobName).append(", buildNumber=").append(buildNumber)
                 .append(", changelist=").append(changelist).append("]");
         return builder.toString();

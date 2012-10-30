@@ -35,6 +35,4 @@ class NameValidationSpec extends Specification {
         NameValidation.usesReservedFormat("abcache-c0USA")
         !NameValidation.usesReservedFormat("hellojgritman")
     }
-
-
 }
