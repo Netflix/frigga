@@ -17,13 +17,27 @@ package com.netflix.frigga;
 
 import java.util.regex.Pattern;
 
-public class NameValidation implements NameConstants {
+/**
+ * Contains static validation methods for checking if a name conforms to Asgard naming standards.
+ */
+public class NameValidation {
 
-    private static final Pattern NAME_HYPHEN_CHARS_PATTERN = Pattern.compile("^[" + NAME_HYPHEN_CHARS + "]+");
-    private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NAME_CHARS + "]+");
-    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + PUSH_FORMAT);
-    private static final Pattern LABELED_VARIABLE_PATTERN = Pattern.compile("^(.*?-)?" + LABELED_VARIABLE + ".*?$");
+    private static final Pattern NAME_HYPHEN_CHARS_PATTERN =
+            Pattern.compile("^[" + NameConstants.NAME_HYPHEN_CHARS + "]+");
+    private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NameConstants.NAME_CHARS + "]+");
+    private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + NameConstants.PUSH_FORMAT);
+    private static final Pattern LABELED_VARIABLE_PATTERN =
+            Pattern.compile("^(.*?-)?" + NameConstants.LABELED_VARIABLE + ".*?$");
 
+    private NameValidation() { }
+
+    /**
+     * Validates if provided value is non-null and non-empty.
+     *
+     * @param value the string to validate
+     * @param variableName name of the variable to include in error messages
+     * @return the value parameter if valid, throws an exception otherwise
+     */
     public static String notEmpty(String value, String variableName) {
         if (value == null) {
             throw new NullPointerException("ERROR: Trying to use String with null " + variableName);
@@ -35,8 +49,7 @@ public class NameValidation implements NameConstants {
     }
 
     /**
-     * Validates a name of a cloud object according to the rules in http://go/CloudModel
-     * The name can contain letters, numbers, dots, and underscores.
+     * Validates a name of a cloud object. The name can contain letters, numbers, dots, and underscores.
      *
      * @param name the string to validate
      * @return true if the name is valid
@@ -62,7 +75,7 @@ public class NameValidation implements NameConstants {
      * reserved format z0 where z is any letter, or contains a hyphen-separated token that starts with the z0 format.
      *
      * @param name to inspect
-     * @return Boolean true if the name ends with the reserved format
+     * @return true if the name ends with the reserved format
      */
     public static Boolean usesReservedFormat(String name) {
         return checkMatch(name, PUSH_FORMAT_PATTERN) || checkMatch(name, LABELED_VARIABLE_PATTERN);

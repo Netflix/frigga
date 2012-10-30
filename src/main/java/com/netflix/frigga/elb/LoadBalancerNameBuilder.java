@@ -17,12 +17,20 @@ package com.netflix.frigga.elb;
 
 import com.netflix.frigga.NameBuilder;
 
+/**
+ * Logic for constructing the name of a new load balancer in Asgard.
+ */
 public class LoadBalancerNameBuilder extends NameBuilder {
 
     private String appName;
     private String stack;
     private String detail;
 
+    /**
+     * Constructs and returns the name of the load balancer.
+     *
+     * @return load balancer name
+     */
     public String buildLoadBalancerName() {
         return combineAppStackDetail(appName, stack, detail);
     }

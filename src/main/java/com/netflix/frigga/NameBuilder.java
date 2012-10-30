@@ -15,6 +15,9 @@
  */
 package com.netflix.frigga;
 
+/**
+ * Abstract class for classes in charge of constructing Asgard names.
+ */
 public abstract class NameBuilder {
 
     protected String combineAppStackDetail(String appName, String stack, String detail) {

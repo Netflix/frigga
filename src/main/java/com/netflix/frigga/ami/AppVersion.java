@@ -19,17 +19,21 @@ import com.netflix.frigga.NameConstants;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Java bean containing the various pieces of information available from the name of an AMI created by Netflix's bakery.
+ * Construct using the {@link parseName} factory method.
+ */
 public class AppVersion implements Comparable<AppVersion> {
 
     /**
-     * All of these are valid:
+     * Valid app patterns. For example, all of these are valid:
      * subscriberha-1.0.0-586499
      * subscriberha-1.0.0-586499.h150
      * subscriberha-1.0.0-586499.h150/WE-WAPP-subscriberha/150
      */
     private static final Pattern APP_VERSION_PATTERN = Pattern.compile(
-            "([" + NameConstants.NAME_HYPHEN_CHARS +
-            "]+)-([0-9.]+)-([0-9]{5,7})(?:[.]h([0-9]+))?(?:\\/([-a-zA-z0-9]+)\\/([0-9]+))?");
+            "([" + NameConstants.NAME_HYPHEN_CHARS
+            + "]+)-([0-9.]+)-([0-9]{5,7})(?:[.]h([0-9]+))?(?:\\/([-a-zA-z0-9]+)\\/([0-9]+))?");
 
 
     private String packageName;
@@ -41,6 +45,12 @@ public class AppVersion implements Comparable<AppVersion> {
     private AppVersion() {
     }
 
+    /**
+     * Parses an AMI name into its component parts.
+     *
+     * @param amiName name of a AMI formatted by Netflix's bakery
+     * @return bean representing the component parts of the AMI name
+     */
     public static AppVersion parseName(String amiName) {
         if (amiName == null) {
             return null;
@@ -58,6 +68,7 @@ public class AppVersion implements Comparable<AppVersion> {
         return parsedName;
     }
 
+    @Override
     public int compareTo(AppVersion other) {
         if (this == other) { // if x.equals(y), then x.compareTo(y) should be 0
             return 0;
@@ -99,15 +110,6 @@ public class AppVersion implements Comparable<AppVersion> {
         return one.compareTo(two);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("AmiName [packageName=").append(packageName).append(", version=").append(version)
-                .append(", buildJobName=").append(buildJobName).append(", buildNumber=").append(buildNumber)
-                .append(", changelist=").append(changelist).append("]");
-        return builder.toString();
-    }
-
     public static Pattern getAppVersionPattern() {
         return APP_VERSION_PATTERN;
     }
@@ -130,6 +132,15 @@ public class AppVersion implements Comparable<AppVersion> {
 
     public String getChangelist() {
         return changelist;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("AppVersion [packageName=").append(packageName).append(", version=").append(version)
+                .append(", buildJobName=").append(buildJobName).append(", buildNumber=").append(buildNumber)
+                .append(", changelist=").append(changelist).append("]");
+        return builder.toString();
     }
 
     @Override

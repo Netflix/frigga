@@ -19,7 +19,10 @@ import com.netflix.frigga.NameBuilder;
 import com.netflix.frigga.NameConstants;
 import com.netflix.frigga.NameValidation;
 
-public class AutoScalingGroupNameBuilder extends NameBuilder implements NameConstants {
+/**
+ * Logic for constructing the name of a new auto scaling group in Asgard.
+ */
+public class AutoScalingGroupNameBuilder extends NameBuilder {
 
     private String appName;
     private String stack;
@@ -33,15 +36,27 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
     private String redBlackSwap;
     private String zoneVar;
 
+    /**
+     * Constructs and returns the name of the auto scaling group without validation.
+     *
+     * @return auto scaling group name
+     */
     public String buildGroupName() {
         return buildGroupName(false);
     }
 
+    /**
+     * Construct and return the name of the auto scaling group.
+     *
+     * @param doValidation validate the supplied parameters before constructing the name
+     * @return auto scaling group name
+     */
     public String buildGroupName(Boolean doValidation) {
         NameValidation.notEmpty(appName, "appName");
 
         if (doValidation) {
-            validateNames(appName, stack, countries, devPhase, hardware, partners, revision, usedBy, redBlackSwap, zoneVar);
+            validateNames(appName, stack, countries, devPhase, hardware, partners, revision, usedBy, redBlackSwap,
+                    zoneVar);
             if (detail != null && !detail.isEmpty() && !NameValidation.checkDetail(detail)) {
                 throw new IllegalArgumentException("(Use alphanumeric characters only)");
             }
@@ -49,14 +64,14 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
 
         // Build the labeled variables for the end of the group name.
         String labeledVars = "";
-        labeledVars += generateIfSpecified(COUNTRIES_KEY, countries);
-        labeledVars += generateIfSpecified(DEV_PHASE_KEY, devPhase);
-        labeledVars += generateIfSpecified(HARDWARE_KEY, hardware);
-        labeledVars += generateIfSpecified(PARTNERS_KEY, partners);
-        labeledVars += generateIfSpecified(REVISION_KEY, revision);
-        labeledVars += generateIfSpecified(USED_BY_KEY, usedBy);
-        labeledVars += generateIfSpecified(RED_BLACK_SWAP_KEY, redBlackSwap);
-        labeledVars += generateIfSpecified(ZONE_KEY, zoneVar);
+        labeledVars += generateIfSpecified(NameConstants.COUNTRIES_KEY, countries);
+        labeledVars += generateIfSpecified(NameConstants.DEV_PHASE_KEY, devPhase);
+        labeledVars += generateIfSpecified(NameConstants.HARDWARE_KEY, hardware);
+        labeledVars += generateIfSpecified(NameConstants.PARTNERS_KEY, partners);
+        labeledVars += generateIfSpecified(NameConstants.REVISION_KEY, revision);
+        labeledVars += generateIfSpecified(NameConstants.USED_BY_KEY, usedBy);
+        labeledVars += generateIfSpecified(NameConstants.RED_BLACK_SWAP_KEY, redBlackSwap);
+        labeledVars += generateIfSpecified(NameConstants.ZONE_KEY, zoneVar);
 
         String result = combineAppStackDetail(appName, stack, detail) + labeledVars;
 
@@ -73,7 +88,7 @@ public class AutoScalingGroupNameBuilder extends NameBuilder implements NameCons
 
     private static String generateIfSpecified(String key, String value) {
         if (value != null && !value.isEmpty()) {
-            return "-" + key + LABELED_VAR_SEPARATOR + value;
+            return "-" + key + NameConstants.LABELED_VAR_SEPARATOR + value;
         }
         return "";
     }
