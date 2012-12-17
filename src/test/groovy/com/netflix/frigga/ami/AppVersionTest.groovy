@@ -81,6 +81,14 @@ class AppVersionTest extends Specification {
         assertIsLessThan(newAppVersion("app", "1.2.3", "WE-WAPP-app", "456", "1234566"), appVersion)
     }
 
+    def 'should parse changelist properly'() {
+        expect:
+        '9b3bc237' == AppVersion.parseName('appName-0.1-9b3bc237.h150').changelist
+        '1630379' == AppVersion.parseName('appName-0.1-1630379').changelist
+        '1' == AppVersion.parseName('appName-0.1-1').changelist
+        'abcdef123456789' == AppVersion.parseName('appName-0.1-abcdef123456789').changelist
+    }
+
     boolean assertIsLessThan(AppVersion lesser, AppVersion greater) {
         lesser != greater &&
             0 > lesser.compareTo(greater) &&
