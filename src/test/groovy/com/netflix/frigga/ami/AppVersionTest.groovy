@@ -83,10 +83,10 @@ class AppVersionTest extends Specification {
 
     def 'should parse changelist properly'() {
         expect:
-        '9b3bc237' == AppVersion.parseName('appName-0.1-9b3bc237.h150').changelist
-        '1630379' == AppVersion.parseName('appName-0.1-1630379').changelist
-        '1' == AppVersion.parseName('appName-0.1-1').changelist
-        'abcdef123456789' == AppVersion.parseName('appName-0.1-abcdef123456789').changelist
+        '9b3bc237' == AppVersion.parseName('appName-0.1-9b3bc237.h150').commit
+        '1630379' == AppVersion.parseName('appName-0.1-1630379').commit
+        '1' == AppVersion.parseName('appName-0.1-1').commit
+        'abcdef123456789' == AppVersion.parseName('appName-0.1-abcdef123456789').commit
     }
 
     boolean assertIsLessThan(AppVersion lesser, AppVersion greater) {
@@ -97,7 +97,7 @@ class AppVersionTest extends Specification {
 
     AppVersion newAppVersion(packageName, version, buildJobName, buildNumber, changelist) {
         new AppVersion(packageName: packageName, version: version, buildJobName: buildJobName,
-                buildNumber: buildNumber, changelist: changelist)
+                buildNumber: buildNumber, commit: changelist)
     }
 
 

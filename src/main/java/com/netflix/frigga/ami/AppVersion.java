@@ -40,7 +40,7 @@ public class AppVersion implements Comparable<AppVersion> {
     private String version;
     private String buildJobName;
     private String buildNumber;
-    private String changelist;
+    private String commit;
 
     private AppVersion() {
     }
@@ -62,7 +62,7 @@ public class AppVersion implements Comparable<AppVersion> {
         AppVersion parsedName = new AppVersion();
         parsedName.packageName = matcher.group(1);
         parsedName.version = matcher.group(2);
-        parsedName.changelist = matcher.group(3);
+        parsedName.commit = matcher.group(3);
         parsedName.buildNumber = matcher.group(4);
         parsedName.buildJobName = matcher.group(5);
         return parsedName;
@@ -94,7 +94,7 @@ public class AppVersion implements Comparable<AppVersion> {
         if (comparison != 0) {
             return comparison;
         }
-        comparison = nullSafeStringComparator(changelist, other.changelist);
+        comparison = nullSafeStringComparator(commit, other.commit);
         return comparison;
     }
 
@@ -130,8 +130,19 @@ public class AppVersion implements Comparable<AppVersion> {
         return buildNumber;
     }
 
+    /**
+     * @since 0.4
+     */
+    public String getCommit() {
+        return commit;
+    }
+
+    /**
+     * @deprecated As of version 0.4, replaced by {@link getCommit()}
+     */
+    @Deprecated
     public String getChangelist() {
-        return changelist;
+        return commit;
     }
 
     @Override
@@ -139,7 +150,7 @@ public class AppVersion implements Comparable<AppVersion> {
         StringBuilder builder = new StringBuilder();
         builder.append("AppVersion [packageName=").append(packageName).append(", version=").append(version)
                 .append(", buildJobName=").append(buildJobName).append(", buildNumber=").append(buildNumber)
-                .append(", changelist=").append(changelist).append("]");
+                .append(", changelist=").append(commit).append("]");
         return builder.toString();
     }
 
@@ -149,7 +160,7 @@ public class AppVersion implements Comparable<AppVersion> {
         int result = 1;
         result = prime * result + ((buildJobName == null) ? 0 : buildJobName.hashCode());
         result = prime * result + ((buildNumber == null) ? 0 : buildNumber.hashCode());
-        result = prime * result + ((changelist == null) ? 0 : changelist.hashCode());
+        result = prime * result + ((commit == null) ? 0 : commit.hashCode());
         result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
         result = prime * result + ((version == null) ? 0 : version.hashCode());
         return result;
@@ -174,10 +185,10 @@ public class AppVersion implements Comparable<AppVersion> {
                 return false;
         } else if (!buildNumber.equals(other.buildNumber))
             return false;
-        if (changelist == null) {
-            if (other.changelist != null)
+        if (commit == null) {
+            if (other.commit != null)
                 return false;
-        } else if (!changelist.equals(other.changelist))
+        } else if (!commit.equals(other.commit))
             return false;
         if (packageName == null) {
             if (other.packageName != null)
