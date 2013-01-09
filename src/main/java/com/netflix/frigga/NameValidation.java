@@ -59,13 +59,26 @@ public class NameValidation {
     }
 
     /**
+     * Validates a name of a cloud object. The name can contain hyphens in addition to letters, numbers, dots, and
+     * underscores.
+     *
+     * @param name the string to validate
+     * @return true if the name is valid
+     */
+    public static boolean checkNameWithHyphen(String name) {
+        return checkMatch(name, NAME_HYPHEN_CHARS_PATTERN);
+    }
+
+    /**
      * The detail part of an auto scaling group name can include letters, numbers, dots, underscores, and hyphens.
      * Restricting the ASG name this way allows safer assumptions in other code about ASG names, like a promise of no
      * spaces, hash marks, percent signs, or dollar signs.
      *
+     * @deprecated use checkNameWithHyphen
      * @param detail the detail string to validate
      * @return true if the detail is valid
      */
+    @Deprecated
     public static boolean checkDetail(String detail) {
         return checkMatch(detail, NAME_HYPHEN_CHARS_PATTERN);
     }
