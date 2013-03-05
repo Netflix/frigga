@@ -20,8 +20,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Java bean containing the various pieces of information available from the name of an AMI created by Netflix's bakery.
- * Construct using the {@link parseName} factory method.
+ * Java bean containing the various pieces of information contained in the appversion tag of an AMI formatted with
+ * Netflix standards. Construct using the {@link parseName} factory method.
  */
 public class AppVersion implements Comparable<AppVersion> {
 
@@ -46,10 +46,10 @@ public class AppVersion implements Comparable<AppVersion> {
     }
 
     /**
-     * Parses an AMI name into its component parts.
+     * Parses the appversion tag into its component parts.
      *
-     * @param amiName name of a AMI formatted by Netflix's bakery
-     * @return bean representing the component parts of the AMI name
+     * @param amiName the text of the AMI's appversion tag
+     * @return bean representing the component parts of the appversion tag
      */
     public static AppVersion parseName(String amiName) {
         if (amiName == null) {
@@ -110,27 +110,43 @@ public class AppVersion implements Comparable<AppVersion> {
         return one.compareTo(two);
     }
 
+    /**
+     * The regex used for deconstructing the appversion string.
+     */
     public static Pattern getAppVersionPattern() {
         return APP_VERSION_PATTERN;
     }
 
+    /**
+     * The name of the RPM package used to create this AMI.
+     */
     public String getPackageName() {
         return packageName;
     }
 
+    /**
+     * The version of the RPM package used to create this AMI.
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * The Jenkins job that generated the binary deployed on this AMI.
+     */
     public String getBuildJobName() {
         return buildJobName;
     }
 
+    /**
+     * The Jenkins build number that generated the binary on this AMI.
+     */
     public String getBuildNumber() {
         return buildNumber;
     }
 
     /**
+     * Identifier of the commit used in the Jenkins builds. Works with both Perforce CLs or git hashes.
      * @since 0.4
      */
     public String getCommit() {
