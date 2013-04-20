@@ -33,7 +33,7 @@ public class AppVersion implements Comparable<AppVersion> {
      */
     private static final Pattern APP_VERSION_PATTERN = Pattern.compile(
             "([" + NameConstants.NAME_HYPHEN_CHARS
-            + "]+)-([0-9.]+)-(\\w{1,40})(?:[.]h([0-9]+))?(?:\\/([-a-zA-z0-9]+)\\/([0-9]+))?");
+            + "]+)-([0-9.]+)-(\\w+)(?:[.](\\w+))?(?:\\/([-a-zA-z0-9]+)\\/([0-9]+))?");
 
 
     private String packageName;
@@ -62,8 +62,10 @@ public class AppVersion implements Comparable<AppVersion> {
         AppVersion parsedName = new AppVersion();
         parsedName.packageName = matcher.group(1);
         parsedName.version = matcher.group(2);
-        parsedName.commit = matcher.group(3);
-        parsedName.buildNumber = matcher.group(4);
+        boolean buildFirst = matcher.group(3) != null && matcher.group(3).startsWith("h"); // 'h' is for Hudson
+        String buildString = matcher.group(buildFirst ? 3 : 4);
+        parsedName.buildNumber = buildString != null ? buildString.substring(1) : null;
+        parsedName.commit = matcher.group(buildFirst ? 4 : 3);
         parsedName.buildJobName = matcher.group(5);
         return parsedName;
     }
