@@ -62,6 +62,9 @@ public class AppVersion implements Comparable<AppVersion> {
         AppVersion parsedName = new AppVersion();
         parsedName.packageName = matcher.group(1);
         parsedName.version = matcher.group(2);
+        // Historically we put the change number first because with Perforce it was a number we could use to sort.
+        // This broke when we started using git, since hashes have no order. For a while the stash builds ommited the
+        // commit id, but eventually we began appending it after the build number.
         boolean buildFirst = matcher.group(3) != null && matcher.group(3).startsWith("h"); // 'h' is for Hudson
         String buildString = matcher.group(buildFirst ? 3 : 4);
         parsedName.buildNumber = buildString != null ? buildString.substring(1) : null;
