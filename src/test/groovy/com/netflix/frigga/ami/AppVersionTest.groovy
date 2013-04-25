@@ -1,6 +1,7 @@
 package com.netflix.frigga.ami
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class AppVersionTest extends Specification {
 
@@ -81,12 +82,30 @@ class AppVersionTest extends Specification {
         assertIsLessThan(newAppVersion("app", "1.2.3", "WE-WAPP-app", "456", "1234566"), appVersion)
     }
 
-    def 'should parse changelist properly'() {
-        expect:
-        '9b3bc237' == AppVersion.parseName('appName-0.1-9b3bc237.h150').commit
-        '1630379' == AppVersion.parseName('appName-0.1-1630379').commit
-        '1' == AppVersion.parseName('appName-0.1-1').commit
-        'abcdef123456789' == AppVersion.parseName('appName-0.1-abcdef123456789').commit
+    @Unroll("should parse #appversionString to #packageName, #version, #commit, #buildNumber, #buildJob")
+    def 'test parsing'() {
+        when:
+        AppVersion appVersion = AppVersion.parseName(appversionString)
+
+        then:
+        appVersion.packageName == packageName
+        appVersion.version == version
+        appVersion.buildNumber ==  buildNumber
+        appVersion.commit == commit
+        appVersion.buildJobName == buildJob
+
+        where:
+        appversionString                                          | packageName    | version | commit            | buildNumber | buildJob
+        'appName-0.1-9b3bc237.h150'                               | 'appName'      | '0.1'   | '9b3bc237'        | '150'       | null
+        'appName-0.1-9b3bc237.h150'                               | 'appName'      | '0.1'   | '9b3bc237'        | '150'       | null
+        'appName-0.1-1630379'                                     | 'appName'      | '0.1'   | '1630379'         | null        | null
+        'appName-0.1-1'                                           | 'appName'      | '0.1'   | '1'               | null        | null
+        'appName-0.1-abcdef123456789'                             | 'appName'      | '0.1'   | 'abcdef123456789' | null        | null
+        'testApp-1.3.0-h196/buildName/196'                        | 'testApp'      | '1.3.0' | null              | '196'       | 'buildName'
+        'testApp-1.3.0-h196.9b3bc237/buildName/196'               | 'testApp'      | '1.3.0' | '9b3bc237'        | '196'       | 'buildName'
+        'subscriberha-1.0.0-586499'                               | 'subscriberha' | '1.0.0' | '586499'          | null        | null
+        'subscriberha-1.0.0-586499.h150'                          | 'subscriberha' | '1.0.0' | '586499'          | '150'       | null
+        'subscriberha-1.0.0-586499.h150/WE-WAPP-subscriberha/150' | 'subscriberha' | '1.0.0' | '586499'          | '150'       | 'WE-WAPP-subscriberha'
     }
 
     boolean assertIsLessThan(AppVersion lesser, AppVersion greater) {
