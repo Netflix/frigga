@@ -15,6 +15,7 @@
  */
 package com.netflix.frigga.autoscaling;
 
+import com.netflix.frigga.Names;
 import com.netflix.frigga.NameBuilder;
 import com.netflix.frigga.NameConstants;
 import com.netflix.frigga.NameValidation;
@@ -91,6 +92,15 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
             return "-" + key + NameConstants.LABELED_VAR_SEPARATOR + value;
         }
         return "";
+    }
+
+    public static String buildNextGroupName(String asg) {
+        if (asg == null) throw new IllegalArgumentException("asg name must be specified");
+        Names parsed = Names.parseName(asg);
+        Integer sequence = parsed.getSequence();
+        Integer nextSequence = new Integer((sequence == null) ? 0 : sequence.intValue() + 1);
+        if (nextSequence.intValue() >= 1000) nextSequence = new Integer(0); // Hack
+        return String.format("%s-v%03d", parsed.getCluster(), nextSequence);
     }
 
     public String getAppName() {
