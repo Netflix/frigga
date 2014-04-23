@@ -95,17 +95,21 @@ class AppVersionTest extends Specification {
         appVersion.buildJobName == buildJob
 
         where:
-        appversionString                          | packageName | version | commit     | buildNumber | buildJob
-        'appName-0.1-9b3bc237.h150'               | 'appName'   | '0.1'   | '9b3bc237' | '150'       | null
-        'appName-0.1-9b3bc237.h150'               | 'appName'   | '0.1'   | '9b3bc237' | '150'       | null
-        'appName-0.1-1630379'                     | 'appName'   | '0.1'   | '1630379'  | null        | null
-        'appName-0.1-1'                           | 'appName'   | '0.1'   | '1'        | null        | null
-        'appName-0.1-abcd6789'                    | 'appName'   | '0.1'   | 'abcd6789' | null        | null
-        'testApp-1.3.0-h196/mybuild/196'          | 'testApp'   | '1.3.0' | null       | '196'       | 'mybuild'
-        'testApp-1.3.0-h196.9b3bc237/mybuild/196' | 'testApp'   | '1.3.0' | '9b3bc237' | '196'       | 'mybuild'
-        'sub-1.0.0-586499'                        | 'sub'       | '1.0.0' | '586499'   | null        | null
-        'sub-1.0.0-586499.h150'                   | 'sub'       | '1.0.0' | '586499'   | '150'       | null
-        'sub-1.0.0-586499.h150/WE-WAPP-sub/150'   | 'sub'       | '1.0.0' | '586499'   | '150'       | 'WE-WAPP-sub'
+        appversionString                          | packageName | version   | commit     | buildNumber | buildJob
+        'appName-0.1-9b3bc237.h150'               | 'appName'   | '0.1'     | '9b3bc237' | '150'       | null
+        'appName-0.1-9b3bc237.h150'               | 'appName'   | '0.1'     | '9b3bc237' | '150'       | null
+        'appName-0.1b34-9b3bc237.h150'            | 'appName'   | '0.1b34'  | '9b3bc237' | '150'       | null
+        'appName-0.1-1630379'                     | 'appName'   | '0.1'     | '1630379'  | null        | null
+        'appName-0.1-1'                           | 'appName'   | '0.1'     | '1'        | null        | null
+        'appName-0.1-abcd6789'                    | 'appName'   | '0.1'     | 'abcd6789' | null        | null
+        'testApp-1.3.0-h196/mybuild/196'          | 'testApp'   | '1.3.0'   | null       | '196'       | 'mybuild'
+        'testApp-1.3.0-h196.9b3bc237/mybuild/196' | 'testApp'   | '1.3.0'   | '9b3bc237' | '196'       | 'mybuild'
+        'sub-1.0.0-586499'                        | 'sub'       | '1.0.0'   | '586499'   | null        | null
+        'sub-1.0.0-586499.h150'                   | 'sub'       | '1.0.0'   | '586499'   | '150'       | null
+        'sub-1.0.0-586499.h150/WE-WAPP-sub/150'   | 'sub'       | '1.0.0'   | '586499'   | '150'       | 'WE-WAPP-sub'
+        'sub-1.0.0b4-586499.h150/WE-WAPP-sub/150' | 'sub'       | '1.0.0b4' | '586499'   | '150'       | 'WE-WAPP-sub'
+        'sub-1.0.0b3-586499.h150'                 | 'sub'       | '1.0.0b3' | '586499'   | '150'       | null
+        'sub-1.0.0B3-586499.h150'                 | 'sub'       | '1.0.0B3' | '586499'   | '150'       | null
     }
 
     boolean assertIsLessThan(AppVersion lesser, AppVersion greater) {
