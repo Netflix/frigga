@@ -33,7 +33,7 @@ public class AppVersion implements Comparable<AppVersion> {
      */
     private static final Pattern APP_VERSION_PATTERN = Pattern.compile(
             "([" + NameConstants.NAME_HYPHEN_CHARS
-            + "]+)-([0-9.a-zA-Z]+)-(\\w+)(?:[.](\\w+))?(?:\\/([-a-zA-z0-9]+)\\/([0-9]+))?");
+            + "]+)-([0-9.a-zA-Z]+)-(\\w+)(?:[.](\\w+))?(?:\\/([" + NameConstants.NAME_HYPHEN_CHARS + "]+)\\/([0-9]+))?");
 
 
     private String packageName;
