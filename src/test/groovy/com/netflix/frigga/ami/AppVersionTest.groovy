@@ -108,6 +108,7 @@ class AppVersionTest extends Specification {
         'sub-1.0.0-586499.h150'                   | 'sub'       | '1.0.0'   | '586499'   | '150'       | null
         'sub-1.0.0-586499.h150/WE-WAPP-sub/150'   | 'sub'       | '1.0.0'   | '586499'   | '150'       | 'WE-WAPP-sub'
         'sub-1.0.0b4-586499.h150/WE-WAPP-sub/150' | 'sub'       | '1.0.0b4' | '586499'   | '150'       | 'WE-WAPP-sub'
+        'sub-1.0.0b4-586499.h150/WE WAPP sub/150' | 'sub'       | '1.0.0b4' | '586499'   | '150'       | 'WE WAPP sub'
         'sub-1.0.0b3-586499.h150'                 | 'sub'       | '1.0.0b3' | '586499'   | '150'       | null
         'sub-1.0.0B3-586499.h150'                 | 'sub'       | '1.0.0B3' | '586499'   | '150'       | null
         'sub-1.2-h78.67ee1291/WE-WAPP-sub.nxt/78' | 'sub'       | '1.2'     | '67ee1291' | '78'        | 'WE-WAPP-sub.nxt'
