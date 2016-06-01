@@ -110,6 +110,28 @@ class NamesSpec extends Specification {
         406 == names.sequence
 
         when:
+        names = Names.parseName("api-test-A-v40600")
+        then:
+        "api-test-A-v40600" == names.group
+        "api-test-A" == names.cluster
+        "api" == names.app
+        "test" == names.stack
+        "A" == names.detail
+        "v40600" == names.push
+        40600 == names.sequence
+
+        when:
+        names = Names.parseName("api-test-A-v4")
+        then:
+        "api-test-A-v4" == names.group
+        "api-test-A" == names.cluster
+        "api" == names.app
+        "test" == names.stack
+        "A" == names.detail
+        "v4" == names.push
+        4 == names.sequence
+
+        when:
         names = Names.parseName("api-test101")
         then:
         "api-test101" == names.group
