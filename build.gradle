@@ -1,5 +1,5 @@
 plugins {
-    id 'nebula.netflixoss' version '3.1.2'
+    id 'nebula.netflixoss' version '3.2.3'
     id 'java'
     id 'groovy'
 }
@@ -12,7 +12,9 @@ repositories {
     jcenter()
 }
 
+tasks.compileGroovy.enabled = false
+
 dependencies {
-    testCompile 'org.codehaus.groovy:groovy-all:1.8.9'
-    testCompile "org.spockframework:spock-core:0.7-groovy-1.8"
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 }
