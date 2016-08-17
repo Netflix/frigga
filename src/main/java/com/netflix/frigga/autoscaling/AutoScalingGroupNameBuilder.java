@@ -58,7 +58,7 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         if (doValidation) {
             validateNames(appName, stack, countries, devPhase, hardware, partners, revision, usedBy, redBlackSwap,
                     zoneVar);
-            if (detail != null && !detail.isEmpty() && !NameValidation.checkDetail(detail)) {
+            if (detail != null && !detail.isEmpty() && !NameValidation.checkNameWithHyphen(detail)) {
                 throw new IllegalArgumentException("(Use alphanumeric characters only)");
             }
         }
