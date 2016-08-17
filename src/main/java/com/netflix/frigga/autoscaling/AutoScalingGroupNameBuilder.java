@@ -58,7 +58,7 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         if (doValidation) {
             validateNames(appName, stack, countries, devPhase, hardware, partners, revision, usedBy, redBlackSwap,
                     zoneVar);
-            if (detail != null && !detail.isEmpty() && !NameValidation.checkNameWithHyphen(detail)) {
+            if (detail != null && !detail.isEmpty() && !NameValidation.checkDetail(detail)) {
                 throw new IllegalArgumentException("(Use alphanumeric characters only)");
             }
         }
@@ -111,12 +111,21 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         this.appName = appName;
     }
 
+    public AutoScalingGroupNameBuilder withAppName(String appName) {
+        this.appName = appName;
+        return this;
+    }
+
     public String getStack() {
         return stack;
     }
 
     public void setStack(String stack) {
         this.stack = stack;
+    }
+    public AutoScalingGroupNameBuilder withStack(String stack) {
+        this.stack = stack;
+        return this;
     }
 
     public String getDetail() {
@@ -127,12 +136,22 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         this.detail = detail;
     }
 
+    public AutoScalingGroupNameBuilder withDetail(String detail) {
+        this.detail = detail;
+        return this;
+    }
+
     public String getCountries() {
         return countries;
     }
 
     public void setCountries(String countries) {
         this.countries = countries;
+    }
+
+    public AutoScalingGroupNameBuilder withCountries(String countries) {
+        this.countries = countries;
+        return this;
     }
 
     public String getDevPhase() {
@@ -143,12 +162,22 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         this.devPhase = devPhase;
     }
 
+    public AutoScalingGroupNameBuilder withDevPhase(String devPhase) {
+        this.devPhase = devPhase;
+        return this;
+    }
+
     public String getHardware() {
         return hardware;
     }
 
     public void setHardware(String hardware) {
         this.hardware = hardware;
+    }
+
+    public AutoScalingGroupNameBuilder withHardware(String hardware) {
+        this.hardware = hardware;
+        return this;
     }
 
     public String getPartners() {
@@ -159,12 +188,22 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         this.partners = partners;
     }
 
+    public AutoScalingGroupNameBuilder withPartners(String partners) {
+        this.partners = partners;
+        return this;
+    }
+
     public String getRevision() {
         return revision;
     }
 
     public void setRevision(String revision) {
         this.revision = revision;
+    }
+
+    public AutoScalingGroupNameBuilder withRevision(String revision) {
+        this.revision = revision;
+        return this;
     }
 
     public String getUsedBy() {
@@ -175,6 +214,11 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         this.usedBy = usedBy;
     }
 
+    public AutoScalingGroupNameBuilder withUsedBy(String usedBy) {
+        this.usedBy = usedBy;
+        return this;
+    }
+
     public String getRedBlackSwap() {
         return redBlackSwap;
     }
@@ -182,6 +226,12 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
     public void setRedBlackSwap(String redBlackSwap) {
         this.redBlackSwap = redBlackSwap;
     }
+
+    public AutoScalingGroupNameBuilder withRedBlackSwap(String redBlackSwap) {
+        this.redBlackSwap = redBlackSwap;
+        return this;
+    }
+
 
     public String getZoneVar() {
         return zoneVar;
@@ -191,4 +241,8 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         this.zoneVar = zoneVar;
     }
 
+    public AutoScalingGroupNameBuilder withZoneVar(String zoneVar) {
+        this.zoneVar = zoneVar;
+        return this;
+    }
 }
