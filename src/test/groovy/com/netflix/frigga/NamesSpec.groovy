@@ -15,6 +15,8 @@
  */
 package com.netflix.frigga
 
+import com.netflix.frigga.spi.CustomizedNames
+import com.netflix.frigga.spi.CustomizedNamesParserProvider
 import spock.lang.Specification
 
 class NamesSpec extends Specification {
@@ -408,4 +410,19 @@ class NamesSpec extends Specification {
         null == names.extractLabeledVariable('-p0sony', null)
     }
 
+    void testWithCustomParserProvider() {
+        when:
+        Names namesCustom = Names.parseName(name, new CustomizedNamesParserProvider());
+        Names namesBase = Names.parseName(baseName)
+
+        then:
+        namesCustom.app == namesBase.app
+        namesCustom.stack == namesBase.stack
+        namesCustom.detail == namesBase.detail
+        ((CustomizedNames) namesCustom).isFailoverStack()
+
+        where:
+        baseName = "videometadata-navigator-integration-240-CAN"
+        name = "failover_$baseName"
+    }
 }

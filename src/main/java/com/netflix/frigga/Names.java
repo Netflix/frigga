@@ -15,6 +15,11 @@
  */
 package com.netflix.frigga;
 
+import com.netflix.frigga.spi.NamesParserProvider;
+
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,6 +52,16 @@ public class Names {
     private String usedBy;
     private String redBlackSwap;
     private String zone;
+
+    private static final NamesParserProvider parserProvider = getNamesParserProvider();
+
+    private static NamesParserProvider getNamesParserProvider() {
+        Iterator<NamesParserProvider> loader = ServiceLoader.load(NamesParserProvider.class).iterator();
+        if (loader.hasNext()) {
+            return loader.next();
+        }
+        return new DefaultNamesParserProvider();
+    }
 
     protected Names(String name) {
         if (name == null || name.trim().isEmpty()) {
@@ -98,7 +113,14 @@ public class Names {
      * @return bean containing the component parts of the compound name
      */
     public static Names parseName(String name) {
-        return new Names(name);
+        return parseName(name, parserProvider);
+    }
+
+    //VisibleForTesting
+    static Names parseName(String name, NamesParserProvider parserProvider) {
+        return Objects
+                .requireNonNull(parserProvider, "NamesParserProvider is required")
+                .parseName(name);
     }
 
     private String extractLabeledVariable(String labeledVariablesString, String labelKey) {
@@ -293,6 +315,13 @@ public class Names {
                 + detail + ", push=" + push + ", sequence=" + sequence + ", countries=" + countries + ", devPhase="
                 + devPhase + ", hardware=" + hardware + ", partners=" + partners + ", revision=" + revision
                 + ", usedBy=" + usedBy + ", redBlackSwap=" + redBlackSwap + ", zone=" + zone + "]";
+    }
+
+    public static class DefaultNamesParserProvider implements NamesParserProvider {
+        @Override
+        public Names parseName(String name) {
+            return new Names(name);
+        }
     }
 
 }
