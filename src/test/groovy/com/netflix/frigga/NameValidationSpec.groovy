@@ -50,4 +50,11 @@ class NameValidationSpec extends Specification {
         NameValidation.usesReservedFormat("abcache-c0USA")
         !NameValidation.usesReservedFormat("hellojgritman")
     }
+
+    def 'should validate names with carets'() {
+        expect:
+        NameValidation.checkNameWithHyphen("A^")
+        NameValidation.checkNameWithHyphen("something-^1.0.0.0")
+    }
+
 }
