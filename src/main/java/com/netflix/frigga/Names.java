@@ -25,12 +25,12 @@ import java.util.regex.Pattern;
 public class Names {
 
     private static final Pattern PUSH_PATTERN = Pattern.compile(
-            "^([" + NameConstants.NAME_HYPHEN_CHARS + "]*)-(" + NameConstants.PUSH_FORMAT + ")$");
+            "^([" + NameConstants.NAME_DELIMITER_CHARS + "]*)" + NameConstants.DELIMITER +"(" + NameConstants.PUSH_FORMAT + ")$");
     private static final Pattern LABELED_VARS_PATTERN = Pattern.compile(
-            "^([" + NameConstants.NAME_HYPHEN_CHARS + "]*?)((-" + NameConstants.LABELED_VARIABLE + ")*)$");
+            "^([" + NameConstants.NAME_DELIMITER_CHARS + "]*?)((" + NameConstants.DELIMITER + NameConstants.LABELED_VARIABLE + ")*)$");
     private static final Pattern NAME_PATTERN = Pattern.compile(
-            "^([" + NameConstants.NAME_CHARS + "]+)(?:-([" + NameConstants.NAME_CHARS + "]*))?(?:-(["
-                    + NameConstants.NAME_HYPHEN_CHARS + "]*?))?$");
+            "^([" + NameConstants.NAME_CHARS + "]+)(?:" + NameConstants.DELIMITER + "([" + NameConstants.NAME_CHARS + "]*))?(?:" + NameConstants.DELIMITER + "(["
+                    + NameConstants.NAME_DELIMITER_CHARS + "]*?))?$");
 
     private String group;
     private String cluster;
@@ -103,7 +103,7 @@ public class Names {
 
     private String extractLabeledVariable(String labeledVariablesString, String labelKey) {
         if (labeledVariablesString != null) {
-            Pattern labelPattern = Pattern.compile(".*?-" + labelKey + NameConstants.LABELED_VAR_SEPARATOR + "(["
+            Pattern labelPattern = Pattern.compile(".*?" + NameConstants.DELIMITER + labelKey + NameConstants.LABELED_VAR_SEPARATOR + "(["
                     + NameConstants.NAME_CHARS + "]*).*?$");
             Matcher labelMatcher = labelPattern.matcher(labeledVariablesString);
             boolean hasLabel = labelMatcher.matches();

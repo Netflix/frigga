@@ -32,8 +32,8 @@ public class AppVersion implements Comparable<AppVersion> {
      * subscriberha-1.0.0-586499.h150/WE-WAPP-subscriberha/150
      */
     private static final Pattern APP_VERSION_PATTERN = Pattern.compile(
-            "([" + NameConstants.NAME_HYPHEN_CHARS
-            + "]+)-([0-9.a-zA-Z~]+)-(\\w+)(?:[.](\\w+))?(?:\\/([" + NameConstants.NAME_HYPHEN_CHARS + "]+)\\/([0-9]+))?");
+            "([" + NameConstants.APP_NAME_DELIMITER_CHARS
+            + "]+)"+ NameConstants.APPVERSION_DELIMITER +"([0-9.a-zA-Z~]+)"+ NameConstants.APPVERSION_DELIMITER +"(\\w+)(?:[.](\\w+))?(?:\\/([" + NameConstants.APP_NAME_DELIMITER_CHARS + "]+)\\/([0-9]+))?");
 
 
     private String packageName;

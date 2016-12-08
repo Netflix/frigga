@@ -25,10 +25,10 @@ public abstract class NameBuilder {
         // Use empty strings, not null references that output "null"
         stack = stack != null ? stack : "";
         if (detail != null && !detail.isEmpty()) {
-            return appName + "-" + stack + "-" + detail;
+            return appName + NameConstants.DELIMITER + stack + NameConstants.DELIMITER  + detail;
         }
         if (!stack.isEmpty()) {
-            return appName + "-" + stack;
+            return appName + NameConstants.DELIMITER  + stack;
         }
         return appName;
     }
