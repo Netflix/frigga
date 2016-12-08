@@ -20,8 +20,14 @@ package com.netflix.frigga;
  */
 public interface NameConstants {
 
-    String NAME_CHARS = "a-zA-Z0-9._";
-    String NAME_HYPHEN_CHARS = "-a-zA-Z0-9._\\^";
+    String DELIMITER = System.getenv("FRIGGA_DELIMITER") == ""?  System.getenv("FRIGGA_DELIMITER") : "_";
+    String APPVERSION_DELIMITER = System.getenv("FRIGGA_APPVERSION_DELIMITER") == ""?  System.getenv("FRIGGA_APPVERSION_DELIMITER") : "-";
+    String AUTHORIZED_CHARS = System.getenv("FRIGGA_AUTHORIZED_CHARS") == ""?  System.getenv("FRIGGA_AUTHORIZED_CHARS") :".\\-";
+    String APPVERSION_AUTHORIZED_CHARS = System.getenv("FRIGGA_APPVERSION_AUTHORIZED_CHARS") == ""?  System.getenv("FRIGGA_APPVERSION_AUTHORIZED_CHARS") :"._";
+
+    String NAME_CHARS = "a-zA-Z0-9" + AUTHORIZED_CHARS;
+    String NAME_DELIMITER_CHARS = DELIMITER + "a-zA-Z0-9" + AUTHORIZED_CHARS + "\\^";
+    String APP_NAME_DELIMITER_CHARS = APPVERSION_DELIMITER + "a-zA-Z0-9" + APPVERSION_AUTHORIZED_CHARS + "\\^";
     String PUSH_FORMAT = "v([0-9]+)";
     String LABELED_VAR_SEPARATOR = "0";
     String LABELED_VARIABLE = "[a-zA-Z][" + LABELED_VAR_SEPARATOR + "][a-zA-Z0-9]+";

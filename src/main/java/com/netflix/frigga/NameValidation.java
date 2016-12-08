@@ -22,12 +22,12 @@ import java.util.regex.Pattern;
  */
 public class NameValidation {
 
-    private static final Pattern NAME_HYPHEN_CHARS_PATTERN =
-            Pattern.compile("^[" + NameConstants.NAME_HYPHEN_CHARS + "]+");
+    private static final Pattern NAME_DELIMITER_CHARS_PATTERN =
+            Pattern.compile("^[" + NameConstants.NAME_DELIMITER_CHARS + "]+");
     private static final Pattern NAME_CHARS_PATTERN = Pattern.compile("^[" + NameConstants.NAME_CHARS + "]+");
     private static final Pattern PUSH_FORMAT_PATTERN = Pattern.compile(".*?" + NameConstants.PUSH_FORMAT);
     private static final Pattern LABELED_VARIABLE_PATTERN =
-            Pattern.compile("^(.*?-)?" + NameConstants.LABELED_VARIABLE + ".*?$");
+            Pattern.compile("^(.*?"+ NameConstants.DELIMITER +")?" + NameConstants.LABELED_VARIABLE + ".*?$");
 
     private NameValidation() { }
 
@@ -65,8 +65,8 @@ public class NameValidation {
      * @param name the string to validate
      * @return true if the name is valid
      */
-    public static boolean checkNameWithHyphen(String name) {
-        return checkMatch(name, NAME_HYPHEN_CHARS_PATTERN);
+    public static boolean checkNameWithDelimiter(String name) {
+        return checkMatch(name, NAME_DELIMITER_CHARS_PATTERN);
     }
 
     /**
@@ -74,13 +74,13 @@ public class NameValidation {
      * Restricting the ASG name this way allows safer assumptions in other code about ASG names, like a promise of no
      * spaces, hash marks, percent signs, or dollar signs.
      *
-     * @deprecated use checkNameWithHyphen
+     * @deprecated use checkNameWithDelimiter
      * @param detail the detail string to validate
      * @return true if the detail is valid
      */
     @Deprecated
     public static boolean checkDetail(String detail) {
-        return checkMatch(detail, NAME_HYPHEN_CHARS_PATTERN);
+        return checkMatch(detail, NAME_DELIMITER_CHARS_PATTERN);
     }
 
     /**
