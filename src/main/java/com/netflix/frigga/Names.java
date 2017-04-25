@@ -29,8 +29,8 @@ public class Names {
     private static final Pattern LABELED_VARS_PATTERN = Pattern.compile(
             "^([" + NameConstants.NAME_HYPHEN_CHARS + "]*?)((-" + NameConstants.LABELED_VARIABLE + ")*)$");
     private static final Pattern NAME_PATTERN = Pattern.compile(
-            "^([" + NameConstants.NAME_CHARS + "]+)(?:-([" + NameConstants.NAME_CHARS + "]*))?(?:-(["
-                    + NameConstants.NAME_HYPHEN_CHARS + "]*?))?$");
+            "^([" + NameConstants.NAME_CHARS + "]+)(?:-([" + NameConstants.NAME_CHARS + "]*)(?:-(["
+                    + NameConstants.NAME_HYPHEN_CHARS + "]*?))?)?$");
 
     private String group;
     private String cluster;
@@ -63,6 +63,14 @@ public class Names {
             return;
         }
 
+        String unlabeledVars = labeledVarsMatcher.group(1);
+        String labeledVariables = labeledVarsMatcher.group(2);
+
+        Matcher nameMatcher = NAME_PATTERN.matcher(unlabeledVars);
+        if (!nameMatcher.matches()) {
+            return;
+        }
+
         group = name;
         cluster = theCluster;
         push = hasPush ? pushMatcher.group(2) : null;
@@ -70,12 +78,6 @@ public class Names {
         if (sequenceString != null) {
             sequence = Integer.parseInt(sequenceString);
         }
-
-        String unlabeledVars = labeledVarsMatcher.group(1);
-        String labeledVariables = labeledVarsMatcher.group(2);
-
-        Matcher nameMatcher = NAME_PATTERN.matcher(unlabeledVars);
-        nameMatcher.matches();
         app = nameMatcher.group(1);
         stack = checkEmpty(nameMatcher.group(2));
         detail = checkEmpty(nameMatcher.group(3));

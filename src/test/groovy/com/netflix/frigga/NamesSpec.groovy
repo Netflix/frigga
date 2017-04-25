@@ -147,6 +147,72 @@ class NamesSpec extends Specification {
         4 == names.sequence
 
         when:
+        names = Names.parseName("api-test-~A-v4")
+        then:
+        "api-test-~A-v4" == names.group
+        "api-test-~A" == names.cluster
+        "api" == names.app
+        "test" == names.stack
+        "~A" == names.detail
+        "v4" == names.push
+        4 == names.sequence
+
+        when:
+        names = Names.parseName("api-test-^A-v4")
+        then:
+        "api-test-^A-v4" == names.group
+        "api-test-^A" == names.cluster
+        "api" == names.app
+        "test" == names.stack
+        "^A" == names.detail
+        "v4" == names.push
+        4 == names.sequence
+
+        when:
+        names = Names.parseName("api-^test-A-v4")
+        then:
+        null == names.group
+        null == names.cluster
+        null == names.app
+        null == names.stack
+        null == names.detail
+        null == names.push
+        null == names.sequence
+
+        when:
+        names = Names.parseName("api-~test-A-v4")
+        then:
+        null == names.group
+        null == names.cluster
+        null == names.app
+        null == names.stack
+        null == names.detail
+        null == names.push
+        null == names.sequence
+
+        when:
+        names = Names.parseName("api--~A-v4")
+        then:
+        "api--~A-v4" == names.group
+        "api--~A" == names.cluster
+        "api" == names.app
+        null == names.stack
+        "~A" == names.detail
+        "v4" == names.push
+        4 == names.sequence
+
+        when:
+        names = Names.parseName("api--^A-v4")
+        then:
+        "api--^A-v4" == names.group
+        "api--^A" == names.cluster
+        "api" == names.app
+        null == names.stack
+        "^A" == names.detail
+        "v4" == names.push
+        4 == names.sequence
+
+        when:
         names = Names.parseName("api-test101")
         then:
         "api-test101" == names.group
