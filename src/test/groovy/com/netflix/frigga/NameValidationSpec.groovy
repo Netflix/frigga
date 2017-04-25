@@ -57,4 +57,10 @@ class NameValidationSpec extends Specification {
         NameValidation.checkNameWithHyphen("something-^1.0.0.0")
     }
 
+    def 'should validate names with tilde'() {
+        expect:
+        NameValidation.checkNameWithHyphen("A~")
+        NameValidation.checkNameWithHyphen("something-~1.0.0.0")
+    }
+
 }
