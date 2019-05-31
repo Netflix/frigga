@@ -104,7 +104,7 @@ public class Names {
     }
 
     private String extractLabeledVariable(String labeledVariablesString, String labelKey) {
-        if (labeledVariablesString != null) {
+        if (labeledVariablesString != null && !labeledVariablesString.isEmpty()) {
             Pattern labelPattern = Pattern.compile(".*?-" + labelKey + NameConstants.LABELED_VAR_SEPARATOR + "(["
                     + NameConstants.NAME_CHARS + "]*).*?$");
             Matcher labelMatcher = labelPattern.matcher(labeledVariablesString);
