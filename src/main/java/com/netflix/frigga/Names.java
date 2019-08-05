@@ -31,6 +31,14 @@ public class Names {
     private static final Pattern NAME_PATTERN = Pattern.compile(
             "^([" + NameConstants.NAME_CHARS + "]+)(?:-([" + NameConstants.NAME_CHARS + "]*)(?:-(["
                     + NameConstants.NAME_HYPHEN_CHARS + "]*?))?)?$");
+    private static final Pattern LABELED_COUNTRIES_PATTERN = createLabeledVariablePattern(NameConstants.COUNTRIES_KEY);
+    private static final Pattern LABELED_DEV_PHASE_KEY_PATTERN = createLabeledVariablePattern(NameConstants.DEV_PHASE_KEY);
+    private static final Pattern LABELED_HARDWARE_KEY_PATTERN = createLabeledVariablePattern(NameConstants.HARDWARE_KEY);
+    private static final Pattern LABELED_PARTNERS_KEY_PATTERN = createLabeledVariablePattern(NameConstants.PARTNERS_KEY);
+    private static final Pattern LABELED_REVISION_KEY_PATTERN = createLabeledVariablePattern(NameConstants.REVISION_KEY);
+    private static final Pattern LABELED_USED_BY_KEY_PATTERN = createLabeledVariablePattern(NameConstants.USED_BY_KEY);
+    private static final Pattern LABELED_RED_BLACK_SWAP_KEY_PATTERN = createLabeledVariablePattern(NameConstants.RED_BLACK_SWAP_KEY);
+    private static final Pattern LABELED_ZONE_KEY_PATTERN = createLabeledVariablePattern(NameConstants.ZONE_KEY);
 
     private String group;
     private String cluster;
@@ -82,14 +90,14 @@ public class Names {
         stack = checkEmpty(nameMatcher.group(2));
         detail = checkEmpty(nameMatcher.group(3));
 
-        countries    = extractLabeledVariable(labeledVariables, NameConstants.COUNTRIES_KEY);
-        devPhase     = extractLabeledVariable(labeledVariables, NameConstants.DEV_PHASE_KEY);
-        hardware     = extractLabeledVariable(labeledVariables, NameConstants.HARDWARE_KEY);
-        partners     = extractLabeledVariable(labeledVariables, NameConstants.PARTNERS_KEY);
-        revision     = extractLabeledVariable(labeledVariables, NameConstants.REVISION_KEY);
-        usedBy       = extractLabeledVariable(labeledVariables, NameConstants.USED_BY_KEY);
-        redBlackSwap = extractLabeledVariable(labeledVariables, NameConstants.RED_BLACK_SWAP_KEY);
-        zone         = extractLabeledVariable(labeledVariables, NameConstants.ZONE_KEY);
+        countries    = extractLabeledVariable(labeledVariables, LABELED_COUNTRIES_PATTERN);
+        devPhase     = extractLabeledVariable(labeledVariables, LABELED_DEV_PHASE_KEY_PATTERN);
+        hardware     = extractLabeledVariable(labeledVariables, LABELED_HARDWARE_KEY_PATTERN);
+        partners     = extractLabeledVariable(labeledVariables, LABELED_PARTNERS_KEY_PATTERN);
+        revision     = extractLabeledVariable(labeledVariables, LABELED_REVISION_KEY_PATTERN);
+        usedBy       = extractLabeledVariable(labeledVariables, LABELED_USED_BY_KEY_PATTERN);
+        redBlackSwap = extractLabeledVariable(labeledVariables, LABELED_RED_BLACK_SWAP_KEY_PATTERN);
+        zone         = extractLabeledVariable(labeledVariables, LABELED_ZONE_KEY_PATTERN);
     }
 
     /**
@@ -103,10 +111,8 @@ public class Names {
         return new Names(name);
     }
 
-    private String extractLabeledVariable(String labeledVariablesString, String labelKey) {
+    private String extractLabeledVariable(String labeledVariablesString, Pattern labelPattern) {
         if (labeledVariablesString != null && !labeledVariablesString.isEmpty()) {
-            Pattern labelPattern = Pattern.compile(".*?-" + labelKey + NameConstants.LABELED_VAR_SEPARATOR + "(["
-                    + NameConstants.NAME_CHARS + "]*).*?$");
             Matcher labelMatcher = labelPattern.matcher(labeledVariablesString);
             boolean hasLabel = labelMatcher.matches();
             if (hasLabel) {
@@ -297,4 +303,9 @@ public class Names {
                 + ", usedBy=" + usedBy + ", redBlackSwap=" + redBlackSwap + ", zone=" + zone + "]";
     }
 
+    private static Pattern createLabeledVariablePattern(String label) {
+        return Pattern.compile(
+            ".*?-" + label + NameConstants.LABELED_VAR_SEPARATOR + "(["
+                + NameConstants.NAME_CHARS + "]*).*?$");
+    }
 }

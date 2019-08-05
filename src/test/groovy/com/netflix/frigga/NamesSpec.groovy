@@ -454,24 +454,14 @@ class NamesSpec extends Specification {
         Names names = Names.parseName("test")
 
         then:
-        'sony' == names.extractLabeledVariable('-p0sony', 'p')
-        'northamerica' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'c')
-        'prod' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'd')
-        'gamesystems' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'h')
-        'vizio' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'p')
-        '27' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'r')
-        'nccp' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'u')
-        'A' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'x')
-        'useast1a' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'z')
-        null == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', 'a')
-        null == names.extractLabeledVariable('', 'a')
-        null == names.extractLabeledVariable(null, 'a')
-        null == names.extractLabeledVariable(null, '')
-        null == names.extractLabeledVariable(null, null)
-        null == names.extractLabeledVariable('', null)
-        null == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', null)
-        null == names.extractLabeledVariable('-p0sony', '')
-        null == names.extractLabeledVariable('-p0sony', null)
+        'sony' == names.extractLabeledVariable('-p0sony', Names.LABELED_PARTNERS_KEY_PATTERN)
+        'northamerica' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_COUNTRIES_PATTERN)
+        'prod' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_DEV_PHASE_KEY_PATTERN)
+        'gamesystems' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_HARDWARE_KEY_PATTERN)
+        'vizio' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_PARTNERS_KEY_PATTERN)
+        '27' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_REVISION_KEY_PATTERN)
+        'nccp' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_USED_BY_KEY_PATTERN)
+        'useast1a' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_ZONE_KEY_PATTERN)
     }
 
 }
