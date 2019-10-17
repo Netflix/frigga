@@ -464,4 +464,14 @@ class NamesSpec extends Specification {
         'useast1a' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_ZONE_KEY_PATTERN)
     }
 
+    def "should not crash on invalid sequence"() {
+        when:
+        Names names = Names.parseName("acme-eks-cluster-v220191017081605302100000002")
+
+        then:
+        names.app == "acme"
+        names.stack == "eks"
+        names.detail == "cluster"
+        names.sequence == null
+    }
 }
