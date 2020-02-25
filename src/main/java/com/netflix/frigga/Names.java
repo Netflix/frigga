@@ -308,8 +308,15 @@ public class Names {
     }
 
     private static Pattern createLabeledVariablePattern(String label) {
-        return Pattern.compile(
-            ".*?-" + label + NameConstants.LABELED_VAR_SEPARATOR + "(["
-                + NameConstants.NAME_CHARS + "]*).*?$");
+        if (label == null || label.length() != 1 || !NameConstants.EXISTING_LABELS.contains(label)) {
+            throw new IllegalArgumentException(String.format("Invalid label %s must be one of %s", label, NameConstants.EXISTING_LABELS));
+        }
+        String labeledVariablePattern
+            = ".*?-"
+            + label
+            + NameConstants.LABELED_VAR_SEPARATOR
+            + "(" + NameConstants.LABELED_VAR_VALUES + "+)"
+            + ".*?$";
+        return Pattern.compile(labeledVariablePattern);
     }
 }

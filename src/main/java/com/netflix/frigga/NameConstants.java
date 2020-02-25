@@ -23,8 +23,6 @@ public interface NameConstants {
     String NAME_CHARS = "a-zA-Z0-9._";
     String NAME_HYPHEN_CHARS = "-a-zA-Z0-9._~\\^";
     String PUSH_FORMAT = "v([0-9]+)";
-    String LABELED_VAR_SEPARATOR = "0";
-    String LABELED_VARIABLE = "[a-zA-Z][" + LABELED_VAR_SEPARATOR + "][a-zA-Z0-9]+";
 
     String COUNTRIES_KEY = "c";
     String DEV_PHASE_KEY = "d";
@@ -34,5 +32,20 @@ public interface NameConstants {
     String USED_BY_KEY = "u";
     String RED_BLACK_SWAP_KEY = "w";
     String ZONE_KEY = "z";
+
+    String EXISTING_LABELS = "["
+        + COUNTRIES_KEY
+        + DEV_PHASE_KEY
+        + HARDWARE_KEY
+        + PARTNERS_KEY
+        + REVISION_KEY
+        + USED_BY_KEY
+        + RED_BLACK_SWAP_KEY
+        + ZONE_KEY
+        + "]";
+
+    String LABELED_VAR_SEPARATOR = "0";
+    String LABELED_VAR_VALUES = "[a-zA-Z0-9]";
+    String LABELED_VARIABLE = EXISTING_LABELS + "[" + LABELED_VAR_SEPARATOR + "]" + LABELED_VAR_VALUES + "+";
 
 }
