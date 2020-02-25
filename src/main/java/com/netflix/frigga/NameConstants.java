@@ -21,7 +21,8 @@ package com.netflix.frigga;
 public interface NameConstants {
 
     String NAME_CHARS = "a-zA-Z0-9._";
-    String NAME_HYPHEN_CHARS = "-a-zA-Z0-9._~\\^";
+    String EXTENDED_NAME_CHARS = NAME_CHARS + "~\\^";
+    String NAME_HYPHEN_CHARS = "-" + EXTENDED_NAME_CHARS;
     String PUSH_FORMAT = "v([0-9]+)";
 
     String COUNTRIES_KEY = "c";
