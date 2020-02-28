@@ -1,5 +1,5 @@
 plugins {
-    id 'nebula.netflixoss' version '7.1.3'
+    id 'nebula.netflixoss' version '8.6.0'
     id 'java'
     id 'groovy'
 }
@@ -14,6 +14,14 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+compileJava {
+    // Generate java8 bytecode and compile against the java8 class
+    // libraries.
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.compilerArgs.addAll(['--release', '8'])
+    }
+}
 
 tasks.compileGroovy.enabled = false
 
