@@ -20,10 +20,15 @@ import com.netflix.frigga.NameBuilder;
 import com.netflix.frigga.NameConstants;
 import com.netflix.frigga.NameValidation;
 
+import java.util.regex.Pattern;
+
 /**
  * Logic for constructing the name of a new auto scaling group in Asgard.
  */
 public class AutoScalingGroupNameBuilder extends NameBuilder {
+
+    private static final Pattern CONTAINS_PUSH_PATTERN =
+        Pattern.compile("(^|-)" + NameConstants.PUSH_FORMAT + "(-|$)");
 
     private String appName;
     private String stack;
@@ -61,6 +66,8 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
             if (detail != null && !detail.isEmpty() && !NameValidation.checkDetail(detail)) {
                 throw new IllegalArgumentException("(Use alphanumeric characters only)");
             }
+            validateDoesNotContainPush("stack", stack);
+            validateDoesNotContainPush("detail", detail);
         }
 
         // Build the labeled variables for the end of the group name.
@@ -77,6 +84,12 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
         String result = combineAppStackDetail(appName, stack, detail) + labeledVars;
 
         return result;
+    }
+
+    private static void validateDoesNotContainPush(String field, String name) {
+        if (name != null && !name.isEmpty() && CONTAINS_PUSH_PATTERN.matcher(name).find()) {
+            throw new IllegalArgumentException(field + " cannot contain a push version");
+        }
     }
 
     private static void validateNames(String... names) {
@@ -123,6 +136,7 @@ public class AutoScalingGroupNameBuilder extends NameBuilder {
     public void setStack(String stack) {
         this.stack = stack;
     }
+
     public AutoScalingGroupNameBuilder withStack(String stack) {
         this.stack = stack;
         return this;

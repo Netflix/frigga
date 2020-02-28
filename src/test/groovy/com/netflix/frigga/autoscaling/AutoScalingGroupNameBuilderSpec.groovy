@@ -40,4 +40,43 @@ class AutoScalingGroupNameBuilderSpec extends Specification {
         then:
         "app-stack-detail" == cluster.buildGroupName()
     }
+
+    def 'stack cannot contain a push'() {
+        when:
+        AutoScalingGroupNameBuilder cluster = new AutoScalingGroupNameBuilder()
+        cluster.withAppName("app").withStack("v123")
+        cluster.buildGroupName(true)
+
+        then:
+        def ex = thrown(IllegalArgumentException.class)
+        ex.message == "stack cannot contain a push version"
+    }
+
+    def 'detail cannot contain a push'() {
+        when:
+        AutoScalingGroupNameBuilder cluster = new AutoScalingGroupNameBuilder()
+        cluster.withAppName("app").withDetail("v123")
+        cluster.buildGroupName(true)
+
+        then:
+        def ex = thrown(IllegalArgumentException.class)
+        ex.message == "detail cannot contain a push version"
+
+        when:
+        cluster = new AutoScalingGroupNameBuilder()
+        cluster.withAppName("app").withDetail("abc-v123-def")
+        cluster.buildGroupName(true)
+
+        then:
+        ex = thrown(IllegalArgumentException.class)
+        ex.message == "detail cannot contain a push version"
+
+        when:
+        cluster = new AutoScalingGroupNameBuilder()
+        cluster.withAppName("app").withDetail("abc-v12b3-def")
+        cluster.buildGroupName(true)
+
+        then:
+        noExceptionThrown()
+    }
 }
