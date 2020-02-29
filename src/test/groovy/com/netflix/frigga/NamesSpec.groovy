@@ -341,7 +341,7 @@ class NamesSpec extends Specification {
         'cass-nccpintegration-random-junk-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-w0A-z0useast1a' == names.cluster
         'cass' == names.app
         'nccpintegration' == names.stack
-        'random-junk' == names.detail
+        'random-junk-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-w0A-z0useast1a' == names.detail
         'v003' == names.push
         3 == names.sequence
         'northamerica' == names.countries
@@ -360,7 +360,7 @@ class NamesSpec extends Specification {
         'cass-nccpintegration-c0northamerica-d0prod' == names.cluster
         'cass' == names.app
         'nccpintegration' == names.stack
-        null == names.detail
+        'c0northamerica-d0prod' == names.detail
         null == names.push
         null == names.sequence
         'northamerica' == names.countries
@@ -379,7 +379,7 @@ class NamesSpec extends Specification {
         'cass--my-stuff-c0northamerica-d0prod' == names.cluster
         'cass' == names.app
         null == names.stack
-        'my-stuff' == names.detail
+        'my-stuff-c0northamerica-d0prod' == names.detail
         null == names.push
         null == names.sequence
         'northamerica' == names.countries
@@ -397,8 +397,8 @@ class NamesSpec extends Specification {
         'cass-c0northamerica-d0prod' == names.group
         'cass-c0northamerica-d0prod' == names.cluster
         'cass' == names.app
-        null == names.stack
-        null == names.detail
+        'c0northamerica' == names.stack // breaking - app/stack/detail takes priority
+        'd0prod' == names.detail
         null == names.push
         null == names.sequence
         'northamerica' == names.countries
@@ -416,8 +416,8 @@ class NamesSpec extends Specification {
         'cass-c0northamerica-d0prod-v102' == names.group
         'cass-c0northamerica-d0prod' == names.cluster
         'cass' == names.app
-        null == names.stack
-        null == names.detail
+        'c0northamerica' == names.stack
+        'd0prod' == names.detail
         'v102' == names.push
         102 == names.sequence
         'northamerica' == names.countries
@@ -447,21 +447,6 @@ class NamesSpec extends Specification {
         null == names.usedBy
         null == names.redBlackSwap
         null == names.zone
-    }
-
-    void testExtractLabeledVariable() {
-        when:
-        Names names = Names.parseName("test")
-
-        then:
-        'sony' == names.extractLabeledVariable('-p0sony', Names.LABELED_PARTNERS_KEY_PATTERN)
-        'northamerica' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_COUNTRIES_PATTERN)
-        'prod' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_DEV_PHASE_KEY_PATTERN)
-        'gamesystems' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_HARDWARE_KEY_PATTERN)
-        'vizio' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_PARTNERS_KEY_PATTERN)
-        '27' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_REVISION_KEY_PATTERN)
-        'nccp' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_USED_BY_KEY_PATTERN)
-        'useast1a' == names.extractLabeledVariable('-c0northamerica-d0prod-h0gamesystems-p0vizio-r027-u0nccp-x0A-z0useast1a', Names.LABELED_ZONE_KEY_PATTERN)
     }
 
     def "should not crash on invalid sequence"() {
