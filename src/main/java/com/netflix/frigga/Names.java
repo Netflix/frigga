@@ -69,11 +69,7 @@ public class Names {
                 push = hasPush ? pushMatcher.group(2) : null;
                 String sequenceString = hasPush ? pushMatcher.group(3) : null;
                 if (sequenceString != null) {
-                    try {
-                        sequence = Integer.parseInt(sequenceString);
-                    } catch (NumberFormatException e) {
-                        // This is fine.
-                    }
+                    sequence = Integer.parseInt(sequenceString);
                 }
                 app = nameMatcher.group(1);
                 stack = checkEmpty(nameMatcher.group(2));

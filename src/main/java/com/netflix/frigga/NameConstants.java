@@ -23,7 +23,7 @@ public interface NameConstants {
     String NAME_CHARS = "a-zA-Z0-9._";
     String EXTENDED_NAME_CHARS = NAME_CHARS + "~\\^";
     String NAME_HYPHEN_CHARS = "-" + EXTENDED_NAME_CHARS;
-    String PUSH_FORMAT = "v([0-9]+)";
+    String PUSH_FORMAT = "v([0-9]{3})";
 
     String COUNTRIES_KEY = "c";
     String DEV_PHASE_KEY = "d";
