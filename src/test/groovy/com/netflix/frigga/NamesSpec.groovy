@@ -125,51 +125,29 @@ class NamesSpec extends Specification {
         406 == names.sequence
 
         when:
-        names = Names.parseName("api-test-A-v40600")
+        names = Names.parseName("api-test-~A-v004")
         then:
-        "api-test-A-v40600" == names.group
-        "api-test-A" == names.cluster
-        "api" == names.app
-        "test" == names.stack
-        "A" == names.detail
-        "v40600" == names.push
-        40600 == names.sequence
-
-        when:
-        names = Names.parseName("api-test-A-v4")
-        then:
-        "api-test-A-v4" == names.group
-        "api-test-A" == names.cluster
-        "api" == names.app
-        "test" == names.stack
-        "A" == names.detail
-        "v4" == names.push
-        4 == names.sequence
-
-        when:
-        names = Names.parseName("api-test-~A-v4")
-        then:
-        "api-test-~A-v4" == names.group
+        "api-test-~A-v004" == names.group
         "api-test-~A" == names.cluster
         "api" == names.app
         "test" == names.stack
         "~A" == names.detail
-        "v4" == names.push
+        "v004" == names.push
         4 == names.sequence
 
         when:
-        names = Names.parseName("api-test-^A-v4")
+        names = Names.parseName("api-test-^A-v004")
         then:
-        "api-test-^A-v4" == names.group
+        "api-test-^A-v004" == names.group
         "api-test-^A" == names.cluster
         "api" == names.app
         "test" == names.stack
         "^A" == names.detail
-        "v4" == names.push
+        "v004" == names.push
         4 == names.sequence
 
         when:
-        names = Names.parseName("api-^test-A-v4")
+        names = Names.parseName("api-^test-A-v004")
         then:
         null == names.group
         null == names.cluster
@@ -180,7 +158,7 @@ class NamesSpec extends Specification {
         null == names.sequence
 
         when:
-        names = Names.parseName("api-~test-A-v4")
+        names = Names.parseName("api-~test-A-v004")
         then:
         null == names.group
         null == names.cluster
@@ -191,25 +169,25 @@ class NamesSpec extends Specification {
         null == names.sequence
 
         when:
-        names = Names.parseName("api--~A-v4")
+        names = Names.parseName("api--~A-v004")
         then:
-        "api--~A-v4" == names.group
+        "api--~A-v004" == names.group
         "api--~A" == names.cluster
         "api" == names.app
         null == names.stack
         "~A" == names.detail
-        "v4" == names.push
+        "v004" == names.push
         4 == names.sequence
 
         when:
-        names = Names.parseName("api--^A-v4")
+        names = Names.parseName("api--^A-v004")
         then:
-        "api--^A-v4" == names.group
+        "api--^A-v004" == names.group
         "api--^A" == names.cluster
         "api" == names.app
         null == names.stack
         "^A" == names.detail
-        "v4" == names.push
+        "v004" == names.push
         4 == names.sequence
 
         when:
@@ -447,16 +425,5 @@ class NamesSpec extends Specification {
         null == names.usedBy
         null == names.redBlackSwap
         null == names.zone
-    }
-
-    def "should not crash on invalid sequence"() {
-        when:
-        Names names = Names.parseName("acme-eks-cluster-v220191017081605302100000002")
-
-        then:
-        names.app == "acme"
-        names.stack == "eks"
-        names.detail == "cluster"
-        names.sequence == null
     }
 }
