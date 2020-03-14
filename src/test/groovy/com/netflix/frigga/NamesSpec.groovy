@@ -47,6 +47,30 @@ class NamesSpec extends Specification {
         null == names.sequence
     }
 
+    def 'supports 3-6 digit push sequence'() {
+        when:
+        Names names = Names.parseName(name)
+
+        then:
+        group == names.group
+        cluster == names.cluster
+        app == names.app
+        stack == names.stack
+        detail == names.detail
+        push == names.push
+        sequence == names.sequence
+
+        where:
+        name           || group          || cluster        || app   || stack      || detail || push      || sequence
+        'foo-v1'       || 'foo-v1'       || 'foo-v1'       || 'foo' || 'v1'       || null   || null      || null
+        'foo-v01'      || 'foo-v01'      || 'foo-v01'      || 'foo' || 'v01'      || null   || null      || null
+        'foo-v001'     || 'foo-v001'     || 'foo'          || 'foo' || null       || null   || 'v001'    || 1
+        'foo-v0001'    || 'foo-v0001'    || 'foo'          || 'foo' || null       || null   || 'v0001'   || 1
+        'foo-v00001'   || 'foo-v00001'   || 'foo'          || 'foo' || null       || null   || 'v00001'  || 1
+        'foo-v000001'  || 'foo-v000001'  || 'foo'          || 'foo' || null       || null   || 'v000001' || 1
+        'foo-v0000001' || 'foo-v0000001' || 'foo-v0000001' || 'foo' || 'v0000001' || null   || null      || null
+    }
+
     def 'should dissect group names'() {
         when:
         Names names = Names.parseName(null)
