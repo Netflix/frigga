@@ -50,7 +50,7 @@ import java.util.regex.Pattern;
  *
  * ; character sets:
  * non-zero-digit                 = %x31-39
- * shard-value-first-char         = ALPHA / "." / "_" / "^" / "~"
+ * shard-value-first-char         = ALPHA
  * shard-value-remaining-char     = shard-value-first-char / DIGIT
  * free-form-detail-char          = shard-value-remaining-char / "-"
  * }
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
  * If a shard appears to be present in the unprocessed portion of the freeFormDetails, this is noted as a warning.
  */
 public class ShardingNamingConvention implements NamingConvention<ShardingNamingResult> {
-  private static final String SHARD_CONTENTS_REGEX = "x([1-9][0-9]*)([" + NameConstants.EXTENDED_NAME_CHARS + "]+)(.*?)$";
+  private static final String SHARD_CONTENTS_REGEX = "x([1-9][0-9]*)([a-zA-Z][a-zA-Z0-9]*)(.*?)$";
   private static final String VALID_SHARDS_REGEX = "(?:^|-)" + SHARD_CONTENTS_REGEX;
   private static final String SHARD_WARNING_REGEX = ".*?-" + SHARD_CONTENTS_REGEX;
   private static final Pattern SHARD_PATTERN = Pattern.compile(VALID_SHARDS_REGEX);

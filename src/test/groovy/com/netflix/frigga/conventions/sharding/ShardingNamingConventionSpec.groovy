@@ -42,6 +42,8 @@ class ShardingNamingConventionSpec extends Specification {
     "x1foo-bar-baz"             || "-bar-baz"        || [1: s(1, "foo")]                 || []
     "x1foo-x2bar-x1baz-bazinga" || "-bazinga"        || [1: s(1, "baz"), 2: s(2, "bar")] || [dupe(1, "foo", "baz")]
     "x2bar-x1foo-blah-x3baz"    || "-blah-x3baz"     || [1: s(1, "foo"), 2: s(2, "bar")] || [remains("-blah-x3baz", 3, "baz")]
+    "x10"                       || "x10"             || null                             || []
+    "x1"                        || "x1"              || null                             || []
   }
 
   private static String dupe(Integer id, String prev, String current) {
