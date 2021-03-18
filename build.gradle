@@ -9,7 +9,7 @@ ext.githubProjectName = rootProject.name // Change if github project name is not
 group = "com.netflix.${githubProjectName}"
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 sourceCompatibility = 1.8
