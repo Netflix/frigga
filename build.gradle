@@ -1,31 +1,25 @@
 plugins {
-    id 'nebula.netflixoss' version '9.1.0'
-    id 'java'
-    id 'groovy'
+    id "nebula.netflixoss" version "11.1.1"
+    id "java-library"
+    id "groovy"
 }
 
-// Establish version and status
-ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
-group = "com.netflix.${githubProjectName}"
+group = "com.netflix.frigga"
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-compileJava {
-    // Generate java8 bytecode and compile against the java8 class
-    // libraries.
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.compilerArgs.addAll(['--release', '8'])
-    }
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(8) 
+  }
 }
+
 
 tasks.compileGroovy.enabled = false
 
 dependencies {
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
-    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testImplementation "org.codehaus.groovy:groovy-all:2.4.6"
+    testImplementation "org.spockframework:spock-core:1.0-groovy-2.4"
 }
