@@ -113,12 +113,15 @@ class AppVersionTest extends Specification {
         appversionString                                              | packageName | version                      | commit     | buildNumber | buildJob
         'appName-0.1-9b3bc237.h150'                                   | 'appName'   | '0.1'                        | '9b3bc237' | '150'       | null
         'appName-0.1-9b3bc237.h150'                                   | 'appName'   | '0.1'                        | '9b3bc237' | '150'       | null
+        'appName-0.1-h150.9b3bc237~focal'                             | 'appName'   | '0.1'                        | '9b3bc237' | '150'       | null
+        'appName-0.1-h150.9b3bc237~focal/mybuild/150'                 | 'appName'   | '0.1'                        | '9b3bc237' | '150'       | 'mybuild'
         'appName-0.1b34-9b3bc237.h150'                                | 'appName'   | '0.1b34'                     | '9b3bc237' | '150'       | null
         'appName-0.1-1630379'                                         | 'appName'   | '0.1'                        | '1630379'  | null        | null
         'appName-0.1-1'                                               | 'appName'   | '0.1'                        | '1'        | null        | null
         'appName-0.1-abcd6789'                                        | 'appName'   | '0.1'                        | 'abcd6789' | null        | null
         'appName-0.1~rc.1-1630379'                                    | 'appName'   | '0.1~rc.1'                   | '1630379'  | null        | null
         'appName-0.1~dev.1-9b3bc237.h150'                             | 'appName'   | '0.1~dev.1'                  | '9b3bc237' | '150'       | null
+        'appName-0.1~dev.1-h150.9b3bc237~focal'                       | 'appName'   | '0.1~dev.1'                  | '9b3bc237' | '150'       | null
         'appName-0.1~dev.3.uncommitted-h0.54f3416'                    | 'appName'   | '0.1~dev.3.uncommitted'      | '54f3416'  | '0'         | null
         'testApp-1.3.0-h196/mybuild/196'                              | 'testApp'   | '1.3.0'                      | null       | '196'       | 'mybuild'
         'testApp-1.3.0-h196.9b3bc237/mybuild/196'                     | 'testApp'   | '1.3.0'                      | '9b3bc237' | '196'       | 'mybuild'
