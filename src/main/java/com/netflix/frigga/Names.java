@@ -96,6 +96,21 @@ public class Names {
         return new Names(name);
     }
 
+    /**
+     * Same as the above, but validates the format of name before constructing
+     * the returned Names, throwing if it's invalid.
+     *
+     * @param name the name of an autoscaling group, security group, or load balancer
+     * @return bean containing the component parts of the compound name
+     * @throws IllegalArgumentException if name is not valid
+     */
+    public static Names parseNameOrThrow(String name) {
+        if (!isValidName(name)) {
+            throw new IllegalArgumentException(String.format("Invalid name '%s'", name));
+        }
+        return new Names(name);
+    }
+
     private String checkEmpty(String input) {
         return (input != null && !input.isEmpty()) ? input : null;
     }
@@ -172,6 +187,14 @@ public class Names {
         }
 
         return result.getResult().map(extractor).orElse(null);
+    }
+
+    private static boolean isValidName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+
+        return PUSH_PATTERN.matcher(name).matches() || NAME_PATTERN.matcher(name).matches();
     }
 
     @Override
