@@ -97,7 +97,7 @@ public class Names {
     }
 
     /**
-     * Same as the above, but validates the format of name before constructing
+     * Same as {@code parseName}, but validates the format of name before constructing
      * the returned Names, throwing if it's invalid.
      *
      * @param name the name of an infrastructure resource
