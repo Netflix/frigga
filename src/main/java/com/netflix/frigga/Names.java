@@ -100,7 +100,7 @@ public class Names {
      * Same as the above, but validates the format of name before constructing
      * the returned Names, throwing if it's invalid.
      *
-     * @param name the name of an autoscaling group, security group, or load balancer
+     * @param name the name of an infrastructure resource
      * @return bean containing the component parts of the compound name
      * @throws IllegalArgumentException if name is not valid
      */
