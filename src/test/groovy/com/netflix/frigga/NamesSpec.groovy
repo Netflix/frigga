@@ -33,6 +33,25 @@ class NamesSpec extends Specification {
         889 == names.sequence
     }
 
+    def 'should throw for invalid name when calling parseNameOrThrow'() {
+        when:
+        Names.parseNameOrThrow('nccp-moviecontrol%27')
+
+        then:
+        thrown(IllegalArgumentException)
+    }
+
+    def 'should not throw for valid name when calling parseNameOrThrow'() {
+        when:
+        Names names = Names.parseNameOrThrow('app-stack-detail-v001')
+
+        then:
+        "app" == names.app
+        "stack" == names.stack
+        "detail" == names.detail
+        "v001" == names.push
+    }
+
     def 'should return empty object for invalid'() {
         when:
         Names names = Names.parseName('nccp-moviecontrol%27')
