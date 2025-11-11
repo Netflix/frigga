@@ -33,12 +33,20 @@ class NamesSpec extends Specification {
         889 == names.sequence
     }
 
-    def 'should throw for invalid name when calling parseNameOrThrow'() {
+    def 'should throw for invalid name when calling parseNameOrThrow: #description'() {
         when:
-        Names.parseNameOrThrow('nccp-moviecontrol%27')
+        Names.parseNameOrThrow(name)
 
         then:
         thrown(IllegalArgumentException)
+
+        where:
+        name                                              | description
+        'nccp-moviecontrol%27-v000'                       | 'invalid stack with push'
+        'nccp-moviecontrol%27'                            | 'invalid stack'
+        'nccp-moviecontrol%27-foo-chap-baseline'          | 'invalid stack with valid detail'
+        'nccp-moviecontrol-foo-hello$-chap-baseline-v000' | 'invalid detail with push'
+        'nccp-moviecontrol-foo-hello$-chap-baseline'      | 'invalid detail'
     }
 
     def 'should not throw for valid name when calling parseNameOrThrow'() {
